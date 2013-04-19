@@ -48,10 +48,10 @@ Coin
 ![caraway](coin.png "Coin")
 
 Mario! He will be transformed to match the different directions.
-![caraway](mario:running:ahead.jpg "Red Shell")
+![caraway](mario.running.ahead.jpg "Red Shell")
 
 Mario when you get a star! (Explained Later)
-![caraway](mario:star.jpeg "Red Shell")
+![caraway](mariostar.jpeg "Red Shell")
     
 ### Part 2 (How to play? and How it works)
 The game will be played by controlling Mario with the arrow keys. He can only move in the four given
