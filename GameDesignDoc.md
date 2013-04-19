@@ -48,7 +48,7 @@ Coin
 ![caraway](coin.png "Coin")
 
 Mario! He will be transformed to match the different directions.
-![caraway](mario:runnin:ahead.jpg "Red Shell")
+![caraway](mario:running:ahead.jpg "Red Shell")
 
 Mario when you get a star! (Explained Later)
 ![caraway](mario:star.jpeg "Red Shell")
