@@ -1,89 +1,77 @@
 # Game Design Document
-This is a place holder for your game design document. You are advised to write your document in [Markdown](http://daringfireball.net/projects/markdown/) and the following section will show you how to write a document using Markdown markup.
-
-Alternativley, you can write your document in plain text if you wish.
+Author: Daria Caraway
 
 ----
 
-## Markdown
-Markdown is a human-readable structured plain text format that is used to convert text into HTML. GitHub automatically renders Markdown into HTML.
+## Mario's Coin Collector
 
-This is a crash course on how to use Markdown. The following section will show you the plain text used to generate the document shown in the rendering section.
+### Goal
 
-### Code
-
-```
-# Header 1
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
-
-You can also write in **bold** or _italics_. You can also ~~strike through~~ or write inline `Code Segments`
-
->Blockquotes are done as such.
-
-Just make sure to separate paragraphs with an emptyline. 
-Otherwise, they are considered in the same paragraph.
-
-You link to [Google](https://www.google.com) as such and lists are written has follows:
-  1. First you indent with two empty spaces.
-  1. Then, you use:
-    * `1.` to signal an ordered (i.e. numbered) list, or
-    * `*`, `-`, `+` to represent an unordered list.
-      1. Make sure to maintain indentation
-      1. As it is used to identify sub-lists
-  1. Numbering and symboles don't matter as they are auto-generated later.
-
-Tables are pretty easy to make:
-
-| Tables        | Are           | Easy          |
-| ------------- |:-------------:| -------------:|
-| left-aligned  | centered      | right-aligned |
-| header are    | bolded and    | centered      |
-| zebra stripes | are neat      | 1             |
+As Mario, the player's goal is to collect coins. Easy Right? However, there will be different monsters, the shells, that are trying to stop you. 
 
 
-Images are added inline by using the following syntax
-![alt text](http://octodex.github.com/images/Professortocat_v2.png "Image Title")
-```
+### Part 1 (What are my "things"?)
+  1. Red "Tracker" Shell
+    * Moving: This "thing" will follow around the user (Mario) as he tries to reach the coin.
+    * Functions: Has the capability to take away a life.
+    
+  2. Green "Random" Shell
+    * Moving: This "thing" will randomly move move around the screen bouncing off the sides.
+    * Functions: Has the capability to take away a life. 
+    
+  3. Blue "Spiked" Shell
+  	* Moving: This "thing" whill guard the coin, tracing a rectangular path around it.
+  	* Functions: Has the ability to kill the player.
+  
+  4. Green "1 Up" Mushroom
+    * Moving: This "thing" wont move, but will appear at random intervals through the game play and will blink and 
+    * Function: Has the ability to give the player an extra life.
+    
+  5. The Coin
+    * Moving: This "thing" will bounce up and down in place waiting to be retrieved by the player.  Once the coin has been collected it will then randomly pop up in a new location for the player to collect again.
+    * Function: Has the ability to send the user to another level.
+#### Photos:
 
-----
+Red Shell
+![caraway](redshell.jpg "Red Shell")
 
-### Rendering
-This section shows the rendering of the plain text above.
+Green Shell 
+![caraway](greenshell.jpg "Green Shell") 
 
-# Header 1
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
+Blue Shell 
+![caraway](blueshell.jpeg "Blue Shell")
 
-You can also write in **bold** or _italics_. You can also ~~strike through~~ or write inline `Code Segments`
+Green Mushroom
+![caraway](greenmushroom.jpg "Green Mushroom")
 
->Blockquotes are done as such.
+Coin
+![caraway](coin.png "Coin")
 
-Just make sure to separate paragraphs with an emptyline. 
-Otherwise, they are considered in the same paragraph.
+Mario! He will be transformed to match the different directions.
+![caraway](mario/runnin/ahead.jpg "Red Shell")
 
-You link to [Google](https://www.google.com) as such and lists are written has follows:
-  1. First you indent with two empty spaces.
-  1. Then, you use:
-    * `1.` to signal an ordered (i.e. numbered) list, or
-    * `*`, `-`, `+` to represent an unordered list.
-      1. Make sure to maintain indentation
-      1. As it is used to identify sub-lists
-  1. Numbering and symboles don't matter as they are auto-generated later.
+Mario when you get a star! (Explained Later)
+![caraway](mario/star.jpeg "Red Shell")
+    
+### Part 2 (How to play? and How it works)
+The game will be played by controlling Mario with the arrow keys. He can only move in the four given
+directions, and cannot move diagnoally.  To retrieve the coin the player must direct Mario to collide with the bouncing coin.  After the player gets 3 coins they will level up.  Each level
+will have more and ore shells that move faster and faster.
 
-Tables are pretty easy to make:
+### Part 3 (The Score!!)
+The player will earn points everytime Mario retirves a coin, and as the levels get harder the coins will be worth more points.  Also, every twelve coins the coins will be traded in for a star and the star will be worth bonus points.
 
-| Tables        | Are           | Easy          |
-| ------------- |:-------------:| -------------:|
-| left-aligned  | centered      | right-aligned |
-| header are    | bolded and    | centered      |
-| zebra stripes | are neat      | 1             |
+### Part 4 (Lives)
+The player will begin with three lives, every time he gets hit by a shell his health meter will decrase in half, after
+the health meter is decremented twice, the player will die and will a) be reincarnated in the corner of the screen if there are more lives available
+or b) the game will be over. If the green mushroom appears and Mario gets ahold of it, he will get an extra life added to his stock pile.
+ 
+### Part 5 (The layout)
+I apologize I am not an artists, I am a computer science major...
 
 
-Images are added inline by using the following syntax
-![alt text](http://octodex.github.com/images/Professortocat_v2.png "Image Title")
+
+ 
+
+
 
