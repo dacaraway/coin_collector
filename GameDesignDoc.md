@@ -34,6 +34,7 @@ As Mario, the player's goal is to collect coins. Easy Right? However, there will
 #### Photos:
 
 Red Shell
+
 ![caraway](redshell.jpg "Red Shell")
 
 Green Shell 
@@ -88,7 +89,7 @@ completely established.
 
 Example -- the black lines show the directions in which each thing moves.
 
-![caraway](rough.jpeg "Rough Window")
+![caraway](rough.jpg "Rough Window")
 
 
 
