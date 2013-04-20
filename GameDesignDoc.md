@@ -37,38 +37,61 @@ Red Shell
 ![caraway](redshell.jpg "Red Shell")
 
 Green Shell 
+
 ![caraway](greenshell.jpg "Green Shell") 
 
 Blue Shell 
+
 ![caraway](blueshell.jpeg "Blue Shell")
 
 Green Mushroom
+
 ![caraway](greenmushroom.jpg "Green Mushroom")
 
 Coin
+
 ![caraway](coin.png "Coin")
 
 Mario! He will be transformed to match the different directions.
+
 ![caraway](mario.running.ahead.jpg "Red Shell")
 
 Mario when you get a star! (Explained Later)
+
 ![caraway](mariostar.jpeg "Red Shell")
     
 ### Part 2 (How to play? and How it works)
 The game will be played by controlling Mario with the arrow keys. He can only move in the four given
-directions, and cannot move diagnoally.  To retrieve the coin the player must direct Mario to collide with the bouncing coin.  After the player gets 3 coins they will level up.  Each level
+directions, and cannot move diagnoally.  To retrieve the coin the player must direct Mario to collide with the bouncing coin.  After the player gets 3 coins he will level up.  Each level
 will have more and ore shells that move faster and faster.
 
 ### Part 3 (The Score!!)
-The player will earn points everytime Mario retirves a coin, and as the levels get harder the coins will be worth more points.  Also, every twelve coins the coins will be traded in for a star and the star will be worth bonus points.
+The player will earn points everytime Mario retirves a coin or when he reaches a new level, and as the levels get harder the coins will be worth more points.  Also, every twelve coins the coins will be traded in for a star and the star will be worth bonus points.
 
 ### Part 4 (Lives)
 The player will begin with three lives, every time he gets hit by a shell his health meter will decrase in half, after
 the health meter is decremented twice, the player will die and will a) be reincarnated in the corner of the screen if there are more lives available
 or b) the game will be over. If the green mushroom appears and Mario gets ahold of it, he will get an extra life added to his stock pile.
  
-### Part 5 (The layout)
-I apologize I am not an artists, I am a computer science major...
+### Part 5 (The interface)
+When the game begins, the user will be able to type his or her name and press the start button.
+Once the player is in the game, there will be a menu/pause button on the top of the screen, and when pressed, will pause the game,
+and give two options, to restart the game completeley or quit and go back to the begining screen where the user was
+promted to enter their name and press start. There will be four other pieces of data on the screen,
+the score, the current level, the health meter, and the amount of lives the player has remaining.  Lastly, their will be a cheat button
+in order to help the graders, if the cheat button is pressed, the player will move to the next level of the game but WILL NOT revieve points
+for leveling up. 
+
+Note: the background will be of different classical Mario scenes for each level such as peaches castle, or a greenery, but have yet to be
+completely established.
+
+
+Example -- the black lines show the directions in which each thing moves.
+
+![caraway](rough.jpeg "Rough Window")
+
+
+
 
 
 
