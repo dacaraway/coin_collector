@@ -30,6 +30,7 @@ As Mario, the player's goal is to collect coins. Easy Right? However, there will
   5. The Coin
     * Moving: This "thing" will bounce up and down in place waiting to be retrieved by the player.  Once the coin has been collected it will then randomly pop up in a new location for the player to collect again.
     * Function: Has the ability to send the user to another level.
+    
 #### Photos:
 
 Red Shell
