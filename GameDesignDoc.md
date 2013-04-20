@@ -11,20 +11,20 @@ As Mario, the player's goal is to collect coins. Easy Right? However, there will
 
 
 ### Part 1 (What are my "things"?)
-  1. Red "Tracker" Shell
+  1. Red "Tracker" Shell 
     * Moving: This "thing" will follow around the user (Mario) as he tries to reach the coin.
     * Functions: Has the capability to take away a life.
     
   2. Green "Random" Shell
     * Moving: This "thing" will randomly move move around the screen bouncing off the sides.
     * Functions: Has the capability to take away a life. 
-    
+  
   3. Blue "Spiked" Shell
   	* Moving: This "thing" whill guard the coin, tracing a rectangular path around it.
   	* Functions: Has the ability to kill the player.
   
   4. Green "1 Up" Mushroom
-    * Moving: This "thing" wont move, but will appear at random intervals through the game play and will blink and 
+    * Moving: This "thing" wont move, but will appear at random intervals through the game play and will blink and dissapear after it has been present for a certain time without being grabbed.
     * Function: Has the ability to give the player an extra life.
     
   5. The Coin
@@ -81,7 +81,7 @@ and give two options, to restart the game completeley or quit and go back to the
 promted to enter their name and press start. There will be four other pieces of data on the screen,
 the score, the current level, the health meter, and the amount of lives the player has remaining.
 
-Note: the background will be of different classical Mario scenes for each level such as peaches castle, or a greenery, but have yet to be
+Note: the background will be of different classical Mario scenes for each level such as Peach's (the princess) castle , or a greenery, but have yet to be
 completely established.
 
 
