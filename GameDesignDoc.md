@@ -79,9 +79,7 @@ When the game begins, the user will be able to type his or her name and press th
 Once the player is in the game, there will be a menu/pause button on the top of the screen, and when pressed, will pause the game,
 and give two options, to restart the game completeley or quit and go back to the begining screen where the user was
 promted to enter their name and press start. There will be four other pieces of data on the screen,
-the score, the current level, the health meter, and the amount of lives the player has remaining.  Lastly, their will be a cheat button
-in order to help the graders, if the cheat button is pressed, the player will move to the next level of the game but WILL NOT revieve points
-for leveling up. 
+the score, the current level, the health meter, and the amount of lives the player has remaining.
 
 Note: the background will be of different classical Mario scenes for each level such as peaches castle, or a greenery, but have yet to be
 completely established.
