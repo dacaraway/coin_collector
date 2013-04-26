@@ -1,8 +1,10 @@
 #include "graphicsview.h"
 #include <QKeyEvent>
+#include <iostream>
 
+using namespace std;
 
-GraphicsView :: GraphicsView(QGraphicsScene* scene, Mario* mario) : QGraphicsView(scene)
+GraphicsView :: GraphicsView(QGraphicsScene* scene, Mario* mario, QWidget* p) : QGraphicsView(scene, p)
 {
 	mainPlayer = mario;
 }
@@ -10,7 +12,10 @@ GraphicsView :: GraphicsView(QGraphicsScene* scene, Mario* mario) : QGraphicsVie
 GraphicsView :: ~GraphicsView () {}
 
 void GraphicsView:: keyPressEvent(QKeyEvent *event)
-{	
+{
+	//cout << "hi" << endl;
+	QGraphicsView:: keyPressEvent(event);
+	
 	switch(event->key())
 	{
 		case Qt::Key_Left:
@@ -39,5 +44,7 @@ void GraphicsView:: keyPressEvent(QKeyEvent *event)
 			mainPlayer->move_();
 			break;
 	}
+	
 }
+
 

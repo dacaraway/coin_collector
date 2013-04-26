@@ -9,7 +9,7 @@
 class GraphicsView: public QGraphicsView
 {
 	public: 
-		GraphicsView(QGraphicsScene* scene, Mario* mario);
+		GraphicsView(QGraphicsScene* scene, Mario* mario, QWidget* p);
 		~GraphicsView();
 		void keyPressEvent(QKeyEvent *event);
 	private:
