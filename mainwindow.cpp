@@ -11,15 +11,38 @@
 #include <sstream>
 #include <QGraphicsPixmapItem>
 
-
-
-
-
 using namespace std;
 
 void MainWindow:: quit()
 {
 	QApplication::quit();
+}
+
+void MainWindow:: directions()
+{
+
+	namestring = name->toPlainText();
+	if(namestring == 0 || (namestring == "Please Enter a Valid Name") == true)
+	{
+		name->setText("Please Enter a Valid Name");
+	}
+	else
+	{
+		start->hide();
+		name->hide();
+		namelabel->hide();
+		
+		QLabel* directionsLabel = new QLabel("Gameplay: Use the keyboard arrows to move around the screen to try to get the coin! \n \n But be careful, the shells are dangerous, expecially the blue one. \n Be sure to grab the green mushroom when it appears, and you will recieve an extra life!!\n \n Hint: For grading purposes only, a cheat button is supplied to clearly demonstrate leveling up,\n otherwise, 3 coins achieves a new level.");
+		QPushButton* starter = new QPushButton("COMMENCE THE FUN");
+		startscene->addWidget(starter);
+		prelogo->setPos(50,175);
+		starter->move(250,150);
+		startscene->addWidget(directionsLabel);
+		directionsLabel->move(45,0);
+		
+		
+		connect(starter, SIGNAL(clicked()), this, SLOT(startGame()));	
+	}
 }
 
 void MainWindow:: menuFunc()
@@ -50,17 +73,19 @@ MainWindow:: ~MainWindow()
 }
 MainWindow::MainWindow()  
 {
-	QGraphicsScene* startscene = new QGraphicsScene();
+	startscene = new QGraphicsScene();
+	
 	
 	mainPlayer = new Mario(700, 300);
+	view = new GraphicsView(startscene, mainPlayer, NULL);
 	
-
-	view = new GraphicsView(startscene, mainPlayer);
-
+	view->setFixedSize(800, 800 );
+	
+	
 
 	QPixmap* logoPic = new QPixmap("PNGpics/prelogo.png");
 
-	QGraphicsPixmapItem* prelogo = new QGraphicsPixmapItem(*logoPic);
+	prelogo = new QGraphicsPixmapItem(*logoPic);
 	
 	startscene->addItem(prelogo);
 	prelogo->setPos(100,100);
@@ -68,7 +93,7 @@ MainWindow::MainWindow()
 	
 	
 	
-	start = new QPushButton("Start Game");
+	start = new QPushButton("Directions");
 	startscene->addWidget(start);
 	start->show();
 	start->move(200,430);
@@ -88,12 +113,10 @@ MainWindow::MainWindow()
 	mushOpen = false;
 	coinCounter = 0;
 	
-	clearFocus();
+	greenShell2 = NULL;
+	greenShell3 = NULL;
 	
-	name->setFocus();
-	
-	
-	connect(start, SIGNAL(clicked()), this, SLOT(startGame()));
+	connect(start, SIGNAL(clicked()), this, SLOT(directions()));
 }
 
 
@@ -101,8 +124,19 @@ void MainWindow:: resetCoin()
 {
 	
 	int cRandXR = rand() %900;
-	int cRandYR = rand()%700;
+	int cRandYR = rand()%550 + 100;
+	int x = mainPlayer->pixmap->pos().x();
+	int y = mainPlayer->pixmap->pos().y();
 	
+	// putting distance between coin and player
+	while(cRandXR < x+500 && cRandXR > x-500 && cRandYR < y+500 && cRandYR > y-500)
+	{
+		cRandXR = rand()%900;
+		cRandYR = rand()%550;
+	}
+		
+	
+	counter2 = 0;
 	
 	coin-> setX(cRandXR);
 	coin->setY(cRandYR);
@@ -112,66 +146,154 @@ void MainWindow:: resetCoin()
 	blueShell->setX(cRandXR - 80);
 	blueShell->setY(cRandYR - 90);
 	
+	blueShell->setvX(1);
+	blueShell->setvY(1);
+
+	
 	timer->start();
 	
 }
 void MainWindow :: resetGame()
 {
-
+	timer->stop();
 
 	int gsRandXR = rand()%900;
-	int gsRandYR = rand()%600;
+	int gsRandYR = rand()%550;
 		
 	int cRandXR = rand() %900;
-	int cRandYR = rand()%600;
+	int cRandYR = rand()%550 + 100;
 		
 	int gRandXR = rand() %900;
-	int gRandYR = rand()%600;
-		
-	if(cRandXR == gsRandXR && cRandYR == gsRandYR)
-	{
-		cRandXR += 100;
-	}
+	int gRandYR = rand()%550;
 	
-	// putting distance between shell and player
-	while(gsRandXR < 900 && gsRandXR > 500 && gsRandYR < 500 && gsRandYR > 50)
+	int gsRandXR2 = rand() %900;
+	int gsRandYR2 = rand()%550;
+	
+	int gsRandXR3 = rand() %900;
+	int gsRandYR3 = rand()%550;
+	
+	
+	int rRandXR = rand() %900;
+	int rRandYR = rand()%550;
+
+	
+	int x = mainPlayer->pixmap->pos().x();
+	int y = mainPlayer->pixmap->pos().y();
+	
+	// putting distance between green shell and player
+	while(gsRandXR < x+500 && gsRandXR > x-500 && gsRandYR < y+500 && gsRandYR > y-500)
 	{
 		gsRandXR = rand()%900;
-		gsRandYR = rand()%600;
+		gsRandYR = rand()%550;
+	}
+	
+	// putting distance between green shell and player
+	while(gsRandXR2 < x+500 && gsRandXR2 > x-500 && gsRandYR2 < y+500 && gsRandYR2 > y-500)
+	{
+		gsRandXR2 = rand()%900;
+		gsRandYR2 = rand()%550;
+	}
+	
+	// putting distance between green shell and player
+	while(gsRandXR3 < x+500 && gsRandXR3 > x-500 && gsRandYR3 < y+500 && gsRandYR3 > y-500)
+	{
+		gsRandXR3 = rand()%900;
+		gsRandYR3 = rand()%550;
+	}
+	
+	// putting distance between red shell and player
+	while(rRandXR < x+500 && rRandXR > x-500 && rRandYR < y+500 && rRandYR > y-500)
+	{
+		rRandXR = rand()%900;
+		rRandYR = rand()%550;
 	}
 		
 	// putting distance between coin and player
-	while(cRandXR < 900 && cRandXR > 500 && cRandYR < 500 && cRandYR > 50)
+	while(cRandXR < x+500 && cRandXR > x-500 && cRandYR < y+500 && cRandYR > y-500)
 	{
 		cRandXR = rand()%900;
-		cRandYR = rand()%600;
+		cRandYR = rand()%550;
 	}
 		
 	// putting distance bewteen mush and player
-	while(gRandXR < 900 && gRandXR > 500 && gRandYR < 500 && gRandYR > 50)
+	while(gRandXR < x+500 && gRandXR > x-500 && gRandYR < y+500 && gRandYR > y-500)
 	{
 		gRandXR = rand()%900;
-		gRandYR = rand()%600;
+		gRandYR = rand()%550;
 	}
 	
 	if(restart == true)
 	{
 		lives = 3;
 		score = 0;
+		counter3 = 0;
 		coinCounter=0;
-		level = 0;
+		level = 1;
+		
+		mainPlayer->pixmap->setPos(700,300);
+		mainPlayer->setX(700);
+		mainPlayer->setY(300);
+		mainPlayer->setPic(4);
+		
+		
+		cout << "hi" << endl;
+		redShell1 -> setDVelX(1.1);
+		redShell1 -> setDVelY(1.1);
+	
+		greenShell1 -> setDVelX(5);
+		greenShell1 -> setDVelY(5);
+
+		
+		if(mushOpen == true)
+		{
+			gamescene->removeItem(greenMush);
+			greenMush->setCheck(true);
+			greenMush->setPos(-9999, -9999);
+			mushOpen = false;
+		}
+		if(greenShell3)
+		{
+			itemsList.pop_back();
+			gamescene->removeItem(greenShell3);
+			greenShell3 = NULL;
+		}
+		if(greenShell2)
+		{
+			itemsList.pop_back();
+			gamescene->removeItem(greenShell2);
+			greenShell3 = NULL;
+		}
+		
 	}
+	
+	restart = true;
 	
 	counter= 0;
 	counter2 = 0;
-	counter3 = 0;
+	//counter3 = 0;
 	
-	restart = true;
+
+	
+	//mushOpen = false;
+	//greenMush->setCheck(true);
 	
 	greenShell1->setPos(gsRandXR, gsRandYR);
 	greenShell1->setX(gsRandXR);
 	greenShell1->setY(gsRandYR);
 	
+	if(greenShell2)
+	{
+		greenShell2->setPos(gsRandXR2, gsRandYR2);
+		greenShell2->setX(gsRandXR2);
+		greenShell2->setY(gsRandYR2);
+	}
+	
+	if(greenShell3)
+	{
+		greenShell2->setPos(gsRandXR3, gsRandYR3);
+		greenShell2->setX(gsRandXR3);
+		greenShell2->setY(gsRandYR3);
+	}
 	redShell1->setPos(80,400);
 	redShell1->setX(80);
 	redShell1->setY(400);
@@ -180,10 +302,14 @@ void MainWindow :: resetGame()
 	coin->setX(cRandXR);
 	coin->setY(cRandYR);
 	
-	greenMush->setPos(gRandXR, gRandYR);
+	//greenMush->setPos(gRandXR, gRandYR);
 	blueShell->setPos(cRandXR - 80,cRandYR - 90);
+	
 	blueShell->setX(cRandXR - 80);
 	blueShell->setY(cRandYR - 90);
+	
+	blueShell->setvX(1);
+	blueShell->setvY(1);
 	
 	timer->start();
 
@@ -192,23 +318,28 @@ void MainWindow :: resetGame()
 void MainWindow::startGame()
 {	
 
-	namestring = name->toPlainText();
-	if(namestring == 0 || (namestring == "Please Enter a Valid Name") == true)
-	{
-		name->setText("Please Enter a Valid Name");
-	}
+	//namestring = name->toPlainText();
+	//if(namestring == 0 || (namestring == "Please Enter a Valid Name") == true)
+	//{
+		//name->setText("Please Enter a Valid Name");
+	//}
 
-	else
-	{
+	//else
+	//{
+		view->setFixedSize(1200, 900 );
+		//grabKeyboard();
 		gamescene= new QGraphicsScene();
 		gameview = new QGraphicsView(gamescene);
-
+		
 		scene = new QGraphicsScene();
-		
-		
 		view->setScene(scene);
 		
-	
+		scene->clearFocus();
+		
+		view->setFocusPolicy(Qt :: StrongFocus);
+		
+		view->setFocus();
+			
 		gameview->setFixedSize(1000, 700 );
 		gamescene->setSceneRect(0,0,950,650);
 		
@@ -234,6 +365,9 @@ void MainWindow::startGame()
 		
 		menu = new QPushButton("Menu  //  Pause");
 		layout->addWidget(menu, 6, 10 , 1, 3, Qt::AlignHCenter);
+		
+		QPushButton* cheat = new QPushButton("Cheat // Level Up");
+		layout->addWidget(cheat, 7, 10 , 1, 3, Qt::AlignHCenter);
 
 		QString name2("Name: ");
 		name2.append(namestring);
@@ -301,11 +435,7 @@ void MainWindow::startGame()
 		
 		int gRandX = rand() %900;
 		int gRandY = rand()%600;
-		
-		if(cRandX == gsRandX && cRandY == gsRandY)
-		{
-			cRandX += 100;
-		}
+
 		// putting distance between shell and player
 		while(gsRandX < 900 && gsRandX > 500 && gsRandY < 500 && gsRandY > 50)
 		{
@@ -332,7 +462,7 @@ void MainWindow::startGame()
 		greenShell1 = new GreenShell(greenShellPic, gsRandX, gsRandY);
 		coin = new Coin(coinPic, cRandX, cRandY);
 		blueShell = new BlueShell(blueShellPic,cRandX - 80,cRandY - 90);
-		greenMush = new GreenMush(greenMushPic,gRandX , gRandY - 90);
+		greenMush = new GreenMush(greenMushPic,-9999 , -9999);
 		
 
 		itemsList.push_back(redShell1);
@@ -350,18 +480,21 @@ void MainWindow::startGame()
 
 	
     	timer = new QTimer(this);
-    	timer->setInterval(30);
+    	timer->setInterval(50);
 		timer->start();
 
 
+		connect(cheat, SIGNAL(clicked()), this, SLOT(levelUp()));
 		connect(menu, SIGNAL(clicked()), this, SLOT(menuFunc()));
     	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 
-	}
+	//}
 }
 
 void MainWindow:: handleTimer()
 {
+
+	gameview->setFocusPolicy(Qt:: NoFocus);
 
 	// creating string for score
 	stringstream ss;
@@ -404,28 +537,32 @@ void MainWindow:: handleTimer()
 
 	
 		
-	counter ++;
+	counter++;
 	counter2++;
 	counter3++;
+	
 	if(counter == 40)
 	{
 		counter = 0;
 	}
 	
-	if(counter2 == 1000)
+	if(counter2 == 600)
 	{
 		counter2 = 0;
 	}
 	
-
 	if(counter3% 300 == 0)
 	{
+
 		if(greenMush->getCheck() == true && mushOpen == false)
 		{
-			cout << "adding item" << endl;
+			int gRandX = rand() %900;
+			int gRandY = rand()%600;
+			
 			greenMush->setCheck(true);
 			mushOpen = true;
-		
+			
+			greenMush->setPos(gRandX, gRandY);
 			gamescene->addItem(greenMush);
 		}
 	}
@@ -433,6 +570,10 @@ void MainWindow:: handleTimer()
 
 	redShell1->move(mainPlayer->pixmap->pos());
 	greenShell1->move();
+	if(greenShell2)
+	{
+		greenShell2->move();
+	}
 	blueShell->setCounter(counter2);
 	blueShell->move();
 	coin->setCounter(counter);
@@ -488,19 +629,17 @@ void MainWindow:: handleTimer()
 						
 						//cout << greenMush->getCheck() << endl;
 						
-
 						gamescene->removeItem(greenMush);
-						greenMush->setCheck(false);
-						
+						greenMush->setCheck(true);
+						greenMush->setPos(-9999, -9999);
+
 						lives++;
 						
 						//cout << greenMush->getCheck() << endl;
 						
 						mushOpen = false;
 						
-						
 						timer->start();
-						cout << "hi" << endl;
 						break;
 					}
 			
@@ -514,6 +653,20 @@ void MainWindow:: handleTimer()
 void MainWindow:: die()
 	
 {
+		--lives;
+		
+		stringstream ss1;
+		ss1<< lives;
+		
+		string str1 = ss1.str();
+		const char* cstr1 = str1.c_str();
+		
+		QString lives2("Lives: ");
+		lives2.append(cstr1);
+	
+		lives1->setText(lives2);
+		
+		
 		QMessageBox losebox;
 		
 		stringstream ss , bb;
@@ -525,9 +678,7 @@ void MainWindow:: die()
 		string c = bb.str();
 		str += "\n	  Coins: " + c;
 		const char* cstr = str.c_str();
-		
-		
-		
+
 		
 		losebox.setText(cstr);
 		losebox.setWindowTitle("Play Again");
@@ -538,7 +689,42 @@ void MainWindow:: die()
 		connect(restartButton, SIGNAL(clicked()), this, SLOT(resetGame()));
 		losebox.exec();
 }
-
+/*
+void MainWindow:: keyPressEvent(QKeyEvent *event)
+{	
+	cout << "key found" << endl;
+	
+	QWidget :: keyPressEvent(event);
+	switch(event->key())
+	{
+		case Qt::Key_Left:
+			mainPlayer->setVel(-8,0);
+			mainPlayer->setPic(4);
+			mainPlayer->move_();
+			mainPlayer->setPrevDirec(4);
+			break;
+			
+		case Qt::Key_Right:
+			mainPlayer->setVel(8,0);
+			mainPlayer->setPic(2);
+			mainPlayer->move_();
+			mainPlayer->setPrevDirec(2);
+			break;
+			
+		case Qt::Key_Up:
+			mainPlayer->setVel(0,-8);
+			mainPlayer->setPic(1);
+			mainPlayer->move_();
+			break;
+			
+		case Qt::Key_Down:
+			mainPlayer->setVel(0,8);
+			mainPlayer->setPic(3);
+			mainPlayer->move_();
+			break;
+	}
+}
+*/
 void MainWindow:: minusLife()
 {
 	--lives;
@@ -558,7 +744,67 @@ void MainWindow :: levelUp()
 	restart = false;
 	
 	level++;
+	
+	if(greenShell2)
+	{
+		greenShell2 -> setVelX(greenShell2->getVelX() + 1);
+		greenShell2 -> setVelY(greenShell2->getVelY() + 1);
+	}
+	
+	if(greenShell3)
+	{
+		greenShell3 -> setVelX(greenShell3->getVelX() + 1);
+		greenShell3 -> setVelY(greenShell3->getVelY() + 1);
+	}
+	
+	
+	
+	
+	if(level == 3)
+	{
+		int gsRandX = rand() %900;
+		int gsRandY = rand()%600;
+
+		// putting distance between shell and player
+		while(gsRandX < 900 && gsRandX > 500 && gsRandY < 500 && gsRandY > 50)
+		{
+			gsRandX = rand()%900;
+			gsRandY = rand()%600;
+		}
+		
+		
+		greenShell2 = new GreenShell(greenShellPic,gsRandX, gsRandY); 
+		greenShell2 -> setVelX(greenShell1->getVelX());
+		greenShell2 -> setVelY(greenShell1->getVelY());
+		gamescene->addItem(greenShell2);
+		itemsList.push_back(greenShell2);
+		
+	
+	}
+	
+	if(level == 6)
+	{
+		int gsRandX = rand() %900;
+		int gsRandY = rand()%600;
+
+		// putting distance between shell and player
+		while(gsRandX < 900 && gsRandX > 500 && gsRandY < 500 && gsRandY > 50)
+		{
+			gsRandX = rand()%900;
+			gsRandY = rand()%600;
+		}
+		
+		
+		greenShell3 = new GreenShell(greenShellPic,gsRandX, gsRandY); 
+		greenShell3 -> setVelX(greenShell1->getVelX());
+		greenShell3 -> setVelY(greenShell1->getVelY());
+		gamescene->addItem(greenShell3);
+		itemsList.push_back(greenShell3);
+		
+	
+	}
 	timer->stop();
+
 	resetGame();
 	
 }

@@ -31,22 +31,26 @@ public:
     void show();
     void die();
     void minusLife();
-    void levelUp();
     void resetCoin();
     
 private:
 	 QGraphicsScene* scene;
-	 GraphicsView* view;
+	 QGraphicsView* view;
+	 QGraphicsScene* startscene;
 	 QPushButton* menu;
 	 QString namestring;
 	 QGraphicsView* gameview;
    	 QGraphicsScene* gamescene;
+   	 
+   	 QGraphicsPixmapItem* prelogo;
    	 QTextEdit* name;
    	 QPushButton* start;
    	 QLabel* namelabel;
    	 Mario* mainPlayer;
    	 RedShell* redShell1;
    	 GreenShell* greenShell1;
+   	 GreenShell* greenShell2;
+   	 GreenShell* greenShell3;
    	 BlueShell* blueShell;
    	 GreenMush* greenMush;
    	 Coin* coin;
@@ -83,7 +87,8 @@ public slots:
 	void handleTimer();
 	void resetGame();
 	void unpauseGame();
-
+    void levelUp();
+    void directions();
 	
     
 };
