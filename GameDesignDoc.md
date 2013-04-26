@@ -20,11 +20,11 @@ As Mario, the player's goal is to collect coins. Easy Right? However, there will
     * Functions: Has the capability to take away a life. 
   
   3. Blue "Spiked" Shell
-  	* Moving: This "thing" whill guard the coin, tracing a rectangular path around it.
-  	* Functions: Has the ability to kill the player.
+  	* Moving: This "thing" will guard the coin, tracing a rectangular path around it.
+  	* Functions: Has the ability to kill the player on impact.
   
   4. Green "1 Up" Mushroom
-    * Moving: This "thing" wont move, but will appear at random intervals through the game play and will blink and dissapear after it has been present for a certain time without being grabbed.
+    * Moving: This "thing" wont move, but will appear after a certain interval through the game.
     * Function: Has the ability to give the player an extra life.
     
   5. The Coin
@@ -55,11 +55,9 @@ Coin
 
 Mario! He will be transformed to match the different directions.
 
-![caraway](mario.running.ahead.jpg "Red Shell")
+![caraway](mario.running.ahead.jpg "Mario")
 
-Mario when you get a star! (Explained Later)
 
-![caraway](mariostar.jpeg "Red Shell")
     
 ### Part 2 (How to play? and How it works)
 The game will be played by controlling Mario with the arrow keys. He can only move in the four given
@@ -67,31 +65,30 @@ directions, and cannot move diagnoally.  To retrieve the coin the player must di
 will have more and more shells that move faster and faster.
 
 ### Part 3 (The Score!!)
-The player will earn points everytime Mario retirves a coin or when he reaches a new level, and as the levels get harder the coins will be worth more points.  Also, every twelve coins the coins will be traded in for a star and the star will be worth bonus points.
+The player will earn points everytime Mario retirves a coin or when he reaches a new level, and as the levels get harder the coins will be worth more points.
 
 ### Part 4 (Lives)
-The player will begin with three lives, every time he gets hit by a shell his health meter will decrase in half, after
-the health meter is decremented twice, the player will die and will a) be reincarnated in the corner of the screen if there are more lives available
-or b) the game will be over. If the green mushroom appears and Mario gets ahold of it, he will get an extra life added to his stock pile.
+The player will begin with three lives, every time he gets hit by a shell his lives will decrease by one, and the player  will a) be reincarnated in the corner of the screen if there are more lives available or the game will be over. If the green mushroom appears and Mario gets ahold of it, he will get an extra life added to his stock pile.
  
 ### Part 5 (The interface)
 When the game begins, the user will be able to type his or her name and press the start button.
 Once the player is in the game, there will be a menu/pause button on the top of the screen, and when pressed, will pause the game,
-and give two options, to restart the game completeley or quit and go back to the begining screen where the user was
-promted to enter their name and press start. There will be four other pieces of data on the screen,
-the score, the current level, the health meter, and the amount of lives the player has remaining.
+and give two options, to restart the game completeley or quit and terminate the application.  There is also a cheat button that allow the grader to go to the next level.  This
+shouldn't be used for fun, but just to demonstrate the differences between the levels for grading. There will be four other pieces of data on the screen,
+the score, the current level, and the amount of lives the player has remaining.
 
-Note: the background will be of different classical Mario scenes for each level such as Peach's (the princess) castle , or a greenery, but have yet to be
-completely established.
+Note: the background is a classical mario scene with the Pirahnna plants!
 
 
-Example -- the black lines show the directions in which each thing moves.
+This is a screen shot of the welcome screen, the push button takes the player to a page with basic insctructions and notes.
 
-![caraway](rough.jpg "Rough Window")
-
+![caraway](openscreen.png "Open Screen")
 
 
 
+This is a screen shot of the game being played! I hope you enjoy!!!!!
+
+![caraway](screenshot.png "Screen shot")
 
 
  
