@@ -113,8 +113,8 @@ MainWindow::MainWindow()
 	mushOpen = false;
 	coinCounter = 0;
 	
-	greenShell2 = NULL;
-	greenShell3 = NULL;
+	//greenShell2 = NULL;
+	//greenShell3 = NULL;
 	
 	connect(start, SIGNAL(clicked()), this, SLOT(directions()));
 }
@@ -124,7 +124,7 @@ void MainWindow:: resetCoin()
 {
 	
 	int cRandXR = rand() %900;
-	int cRandYR = rand()%550 + 100;
+	int cRandYR = rand()%450 + 100;
 	int x = mainPlayer->pixmap->pos().x();
 	int y = mainPlayer->pixmap->pos().y();
 	
@@ -155,23 +155,23 @@ void MainWindow:: resetCoin()
 }
 void MainWindow :: resetGame()
 {
-	timer->stop();
+	//timer->stop();
 
 	int gsRandXR = rand()%900;
 	int gsRandYR = rand()%550;
 		
 	int cRandXR = rand() %900;
-	int cRandYR = rand()%550 + 100;
+	int cRandYR = rand()%450 + 100;
 		
 	int gRandXR = rand() %900;
 	int gRandYR = rand()%550;
-	
+	/*
 	int gsRandXR2 = rand() %900;
 	int gsRandYR2 = rand()%550;
 	
 	int gsRandXR3 = rand() %900;
 	int gsRandYR3 = rand()%550;
-	
+	*/
 	
 	int rRandXR = rand() %900;
 	int rRandYR = rand()%550;
@@ -186,7 +186,7 @@ void MainWindow :: resetGame()
 		gsRandXR = rand()%900;
 		gsRandYR = rand()%550;
 	}
-	
+	/*
 	// putting distance between green shell and player
 	while(gsRandXR2 < x+500 && gsRandXR2 > x-500 && gsRandYR2 < y+500 && gsRandYR2 > y-500)
 	{
@@ -200,7 +200,7 @@ void MainWindow :: resetGame()
 		gsRandXR3 = rand()%900;
 		gsRandYR3 = rand()%550;
 	}
-	
+	*/
 	// putting distance between red shell and player
 	while(rRandXR < x+500 && rRandXR > x-500 && rRandYR < y+500 && rRandYR > y-500)
 	{
@@ -227,16 +227,15 @@ void MainWindow :: resetGame()
 		lives = 3;
 		score = 0;
 		counter3 = 0;
-		coinCounter=0;
+		coinCounter = 0;
 		level = 1;
-		
+
 		mainPlayer->pixmap->setPos(700,300);
 		mainPlayer->setX(700);
 		mainPlayer->setY(300);
 		mainPlayer->setPic(4);
 		
 		
-		cout << "hi" << endl;
 		redShell1 -> setDVelX(1.1);
 		redShell1 -> setDVelY(1.1);
 	
@@ -251,6 +250,8 @@ void MainWindow :: resetGame()
 			greenMush->setPos(-9999, -9999);
 			mushOpen = false;
 		}
+		
+		/*
 		if(greenShell3)
 		{
 			itemsList.pop_back();
@@ -263,7 +264,7 @@ void MainWindow :: resetGame()
 			gamescene->removeItem(greenShell2);
 			greenShell3 = NULL;
 		}
-		
+		*/
 	}
 	
 	restart = true;
@@ -280,7 +281,7 @@ void MainWindow :: resetGame()
 	greenShell1->setPos(gsRandXR, gsRandYR);
 	greenShell1->setX(gsRandXR);
 	greenShell1->setY(gsRandYR);
-	
+	/*
 	if(greenShell2)
 	{
 		greenShell2->setPos(gsRandXR2, gsRandYR2);
@@ -294,6 +295,8 @@ void MainWindow :: resetGame()
 		greenShell2->setX(gsRandXR3);
 		greenShell2->setY(gsRandYR3);
 	}
+	*/
+	
 	redShell1->setPos(80,400);
 	redShell1->setX(80);
 	redShell1->setY(400);
@@ -570,10 +573,14 @@ void MainWindow:: handleTimer()
 
 	redShell1->move(mainPlayer->pixmap->pos());
 	greenShell1->move();
+	
+	/*
 	if(greenShell2)
 	{
 		greenShell2->move();
 	}
+	*/
+	
 	blueShell->setCounter(counter2);
 	blueShell->move();
 	coin->setCounter(counter);
@@ -743,8 +750,10 @@ void MainWindow :: levelUp()
 	greenShell1 -> setVelY(greenShell1->getVelY() + 1);
 	restart = false;
 	
-	level++;
+	coinCounter = 0;
 	
+	level++;
+	/*
 	if(greenShell2)
 	{
 		greenShell2 -> setVelX(greenShell2->getVelX() + 1);
@@ -803,6 +812,8 @@ void MainWindow :: levelUp()
 		
 	
 	}
+	
+	*/
 	timer->stop();
 
 	resetGame();
