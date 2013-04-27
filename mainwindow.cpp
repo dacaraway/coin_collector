@@ -126,7 +126,7 @@ void MainWindow:: resetCoin()
 {
 
 	int cRandXR = rand() %870;
-	int cRandYR = rand()%350 + 300;
+	int cRandYR = rand()%350 + 400;
 	int x = mainPlayer->pixmap->pos().x();
 	int y = mainPlayer->pixmap->pos().y();
 	
@@ -135,21 +135,21 @@ void MainWindow:: resetCoin()
 	{
 		if(cRandXR > x)
 		{
-			cRandXR += 100;
+			cRandXR += 300;
 
 		}
 		else if(cRandXR < x)
 		{
-			cRandXR -= 100;
+			cRandXR -= 300;
 		}
 		if(cRandYR > y)
 		{
-			cRandYR += 100;
+			cRandYR += 200;
 
 		}
 		else if(cRandYR < y)
 		{
-			cRandYR -= 100;
+			cRandYR -= 200;
 		}
 		if(cRandXR > 870)
 		{
@@ -254,7 +254,7 @@ void MainWindow :: resetGame()
 	int gsRandYR = rand()%300;
 		
 	int cRandXR = rand() %870;
-	int cRandYR = rand()%350 + 300;
+	int cRandYR = rand()%350 + 400;
 		
 	int gRandXR = rand() %900;
 	int gRandYR = rand()%550;
@@ -393,7 +393,7 @@ void MainWindow :: resetGame()
 	}
 
 	// distance for the red shell
-	if(rRandXR < x+500 && rRandXR > x-500 && rRandYR < y+500 && rRandYR > y-500)
+	if(rRandXR < x+700 && rRandXR > x-700 && rRandYR < y+700 && rRandYR > y-700)
 	{
 		if(rRandXR > x)
 		{
@@ -436,21 +436,21 @@ void MainWindow :: resetGame()
 	{
 		if(cRandXR > x)
 		{
-			cRandXR += 100;
+			cRandXR += 300;
 
 		}
 		else if(cRandXR < x)
 		{
-			cRandXR -= 100;
+			cRandXR -= 300;
 		}
 		if(cRandYR > y)
 		{
-			cRandYR += 100;
+			cRandYR += 200;
 
 		}
 		else if(cRandYR < y)
 		{
-			cRandYR -= 100;
+			cRandYR -= 200;
 		}
 		if(cRandXR > 870)
 		{
