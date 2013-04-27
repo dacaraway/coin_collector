@@ -8,12 +8,7 @@ BlueShell:: BlueShell(QPixmap *pm, int nx, int ny) : Thing(pm,nx,ny)
 	*pm = pm->scaled(50, 50, Qt::KeepAspectRatio);
 	vX = 1;
 	vY = 1;
-	x = nx;
-	y = ny;
-	// bool to see if iterator should explore this object
-	goodCheck = true;
-	
-	setPos(x,y);
+
 } 
 /* Default destructor **/
 BlueShell :: ~BlueShell()
@@ -46,18 +41,7 @@ int BlueShell:: executePower()
 {
 	return 2;
 }
-	/* Sets the X variable of the item
-		@param nx An int passed into from MainWindow **/
-void BlueShell:: setX(int nx)
-{
-	x= nx;
-}
-/* Sets the Y variable of the item
-		@param nx An int passed into from MainWindow **/
-void BlueShell:: setY(int ny)
-{
-	y = ny;
-}
+
 /* Sets the vX variable of the item, used for velocity
 		@param nvx An int passed into from MainWindow **/
 void BlueShell:: setvX(int nvx)
@@ -76,8 +60,6 @@ void BlueShell:: setCounter(int counter1)
 {
 	counter = counter1;
 }
-
-
 
 
 

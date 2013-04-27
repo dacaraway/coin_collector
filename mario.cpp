@@ -4,6 +4,9 @@
 
 using namespace std;
 
+	/* Constructor for a Mario, sets velocity to 0 and the original pixmap to left picture.  Also declares all the the pictures for the different directions.  
+		@param nx Initial x cooridinate to set position
+		@param ny Initial y coordinate to set poition  **/
 Mario :: Mario(int nx, int ny)
 {
 	x = nx;
@@ -21,16 +24,11 @@ Mario :: Mario(int nx, int ny)
 
 	pixmap->setPos(x,y);
 	
-	//pixmap->setFlag(QGraphicsItem::ItemIsFocusable);
-
-	
-	prevDirec = 4;
-	
 }
-
+/* Default destructor **/
 Mario:: ~Mario()
 {}
-
+/* Moves mario the given veolicty based on keyPressEvent() in the GraphicsView class, sets the bounds for the screen so Mario cannot go off **/
 void Mario::move_()
 {
 	x+=vX;
@@ -46,34 +44,26 @@ void Mario::move_()
 	}
 	pixmap->setPos(x,y);
 }
-
+/* Sets the vX and vY variable of the item, used for velocity
+		@param tx the int to be set for vX 
+		@param ty the int to be set for vY **/
 void Mario:: setVel(int tx, int ty)
 {
 	vX = tx;
 	vY = ty;
 }
-
-void Mario:: setPrevDirec(int num)
-{
-	prevDirec=num;
-}
-
+/* Sets the pixmap based on keyPressEvent() in the GraphicsView class
+		@param number The number passed by the key presses to pick through the swtich**/
 void Mario:: setPic(int number)
 {
 	switch(number)
 	{
 		case 1:
 		{	
-			if(prevDirec == 2)
-			{
-				pixmap->setPixmap(*upMarioPic);	
-			}
-			if(prevDirec == 4)
-			{
-				pixmap->setPixmap(*upMarioPic);
-			}
+			pixmap->setPixmap(*upMarioPic);
 			break;
 		}
+			
 		case 2:
 		{	
 			pixmap->setPixmap(*rightMarioPic);
@@ -92,11 +82,14 @@ void Mario:: setPic(int number)
 		}
 	}
 }
-
+/* Sets the X variable of the item
+		@param nx An int passed into from MainWindow **/
 void Mario:: setX(int nx)
 {
 	x= nx;
 }
+/* Sets the Y variable of the item
+	@param ny An int passed into from MainWindow **/
 void Mario:: setY(int ny)
 {
 	y = ny;

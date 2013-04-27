@@ -2,7 +2,7 @@
 #define BLUE_SHELL_H
 #include "thing.h"
 
-/** The BlueShell class hold all the members for the blue shell item.
+/** The BlueShell class hold all the members for the blue shell item which guards the coin in a square path and kills the player on impact.
 @author Daria Caraway
 
 @pre Thing */
@@ -24,18 +24,14 @@ class BlueShell: public Thing
 		/** Sets the counter to be used for square path in move()
 		@param counter1 a counter passed by MainWindow **/
 		void setCounter(int counter1);
-		/** Sets the X variable of the item
-		@param nx An int passed into from MainWindow **/
-		void setX(int nx);
-		/** Sets the Y variable of the item
-		@param nx An int passed into from MainWindow **/
-		void setY(int ny);
 		/** Sets the vX variable of the item, used for velocity
 		@param nvx An int passed into from MainWindow **/
 		void setvX(int nvx);
 		/** Sets the vY variable of the item, used for velocity
 		@param nvx An int passed into from MainWindow **/
 		void setvY(int nvy);
+
+		
 		
 	private:
 		/** The counter that is used in move() and set equal to the param in setCounter() **/

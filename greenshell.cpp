@@ -1,58 +1,54 @@
 #include "greenshell.h"
-
+/* Constructor for a red shell, sets velocity to 3 
+		@param pm Pixmap pointer to show picture
+		@param nx Initial x cooridinate to set position
+		@param ny Initial y coordinate to set poition  **/
 GreenShell:: GreenShell(QPixmap *pm, int nx, int ny) : Thing(pm,nx,ny)
 {
 	
 	*pm = pm->scaled(50, 50, Qt::KeepAspectRatio);
-	vX = 5;
-	vY = 5;
-	x = nx;
-	y = ny;
-	
-	goodCheck = true;
-	
-	setPos(x,y);
-} 
+	vX = 3;
+	vY = 3;
 
+} 
+/* Default destructor **/
 GreenShell :: ~GreenShell()
 {}
-
+/* @return the current vX of the greenshell  **/
 double GreenShell:: getVelX()
 {
 	return vX;
 }
+/** @return the current vY of the greenshell  **/
 double GreenShell:: getVelY()
 {
  return vY;
 }
-
+/* Adds the paramenter to the vX of the object
+		@param x The int passed in from MainWIndow **/
 void GreenShell:: setVelX(int x)
 {
 	vX+=x;
 }
+/** Adds the paramenter to the vY of the object
+		@param y The int passed in from MainWIndow **/
 void GreenShell:: setVelY(int y)
 {
 	vY += y;
 }
-
+/* sets the vX of the object
+		@param x The int passed in from MainWIndow **/
 void GreenShell:: setDVelX(int x)
 {
 	vX=x;
 }
+/* sets the vY of the object
+		@param y The int passed in from MainWIndow **/
 void GreenShell:: setDVelY(int y)
 {
 	vY = y;
 }
-
-void GreenShell:: setX(int nx)
-{
-	x= nx;
-}
-void GreenShell:: setY(int ny)
-{
-	y = ny;
-}
-
+/* Sets the velocities when the shell reaches the bounds of the screen **/
 void GreenShell:: move()
 {
 	x += vX;
@@ -84,5 +80,6 @@ void GreenShell:: move()
     setPos(x,y);
 }
 
+/* @return 1-- tells switch in MainWindow to execute shell collision  **/
 int GreenShell:: executePower()
 {return 1;}
