@@ -12,7 +12,4 @@
 *.la
 *.a
 
-Makefile
-game_caraway.pro
-moc_mainwindow.cpp
 
