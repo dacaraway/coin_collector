@@ -32,14 +32,20 @@ void MainWindow:: directions()
 		start->hide();
 		name->hide();
 		namelabel->hide();
+		prelogo->hide();
 		
-		QLabel* directionsLabel = new QLabel("Gameplay: Use the keyboard arrows to move around the screen to try to get the coin! \n \n But be careful, the shells are dangerous, expecially the blue one. \n Be sure to grab the green mushroom when it appears, and you will recieve an extra life!!\n \n Hint: For grading purposes only, a cheat button is supplied to clearly demonstrate leveling up,\n otherwise, 3 coins achieves a new level.");
+		QPixmap* directionsPic = new QPixmap("PNGpics/directions.png");
+
+		QGraphicsPixmapItem* directions = new QGraphicsPixmapItem(*directionsPic);
+	
+		startscene->addItem(directions);
+		directions->show();
+		view->setFixedSize(1020,800);
+		
+
 		QPushButton* starter = new QPushButton("COMMENCE THE FUN");
 		startscene->addWidget(starter);
-		prelogo->setPos(50,175);
-		starter->move(250,150);
-		startscene->addWidget(directionsLabel);
-		directionsLabel->move(45,0);
+		starter->move(400,700);
 		
 		
 		connect(starter, SIGNAL(clicked()), this, SLOT(startGame()));	
