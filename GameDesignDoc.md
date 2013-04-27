@@ -62,7 +62,7 @@ Mario! He will be transformed to match the different directions.
 ### Part 2 (How to play? and How it works)
 The game will be played by controlling Mario with the arrow keys. He can only move in the four given
 directions, and cannot move diagnoally.  To retrieve the coin the player must direct Mario to collide with the bouncing coin.  After the player gets 3 coins he will level up.  Each level the 
-shells will get faster and every 4 levels a new green shell is added.  Eventually, the player will not be able to outrun the red tracker shell.
+shells will get faster but on the 4th and 8th levels a new green shell is added and the shells are slown down to the original speed to make it more probable for the player.
 
 ### Part 3 (The Score!!)
 The player will earn points everytime Mario retirves a coin or when he reaches a new level, and as the levels get harder the coins will be worth more points.
