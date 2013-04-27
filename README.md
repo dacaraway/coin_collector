@@ -1,12 +1,12 @@
 # Game - Programming Assignments Private Repository
 ### Student Information
-  + Name: Tommy Trojan
-  + USC Email: ttrojan@usc.edu
-  + USC ID: 0123456789
+  + Name: Daria Caraway
+  + USC Email: caraway@usc.edu
+  + USC ID: 7774653052
 
 ### Game Information
-  + Game Name: myAwsomeGame
-  + Game Description: One sentence game description
+  + Game Name: Mario's Coin Collector
+  + Game Description: Use the keyboard to move mario to get the coin while avoinding the shells.
   + [Game Design Doc](GameDesignDoc.md)
 
 
