@@ -12,15 +12,15 @@
 #include <QGraphicsPixmapItem>
 
 using namespace std;
-
+/* This slot is connected to the quit button and terminate the program */
 void MainWindow:: quit()
 {
 	QApplication::quit();
 }
-
+/* This slot is connected to the directions button on the start screen and updates the startscene to show the directions page */
 void MainWindow:: directions()
 {
-
+	// checking to see if name has been entered
 	namestring = name->toPlainText();
 	if(namestring == 0 || (namestring == "Please Enter a Valid Name") == true)
 	{
@@ -28,6 +28,7 @@ void MainWindow:: directions()
 	}
 	else
 	{
+		//creates directions screen
 		start->hide();
 		name->hide();
 		namelabel->hide();
@@ -44,14 +45,14 @@ void MainWindow:: directions()
 		connect(starter, SIGNAL(clicked()), this, SLOT(startGame()));	
 	}
 }
-
+/* This slot is connected to the menu button and pauses the game and allows for a resetGame(), quit(), or unpauseGame() */
 void MainWindow:: menuFunc()
 {
 	timer->stop();
 	QMessageBox menuBox;
 	menuBox.setText("Choose an option:");
 	menuBox.setWindowTitle("Menu");
-	QPushButton* unpause = menuBox.addButton("UnPause", QMessageBox::ActionRole);
+	QPushButton* unpause = menuBox.addButton("Resume", QMessageBox::ActionRole);
 	QPushButton* restartButton = menuBox.addButton("Restart", QMessageBox::ActionRole);
 	QPushButton* quitButton = menuBox.addButton("Quit", QMessageBox::ActionRole);
 
@@ -61,16 +62,17 @@ void MainWindow:: menuFunc()
 	connect(unpause, SIGNAL(clicked()), this, SLOT(unpauseGame()));
 	menuBox.exec();
 }
-
+/* This slot is connected to the resume button and starts the timer from the menu*/
 void MainWindow :: unpauseGame()
 {
 	timer->start();
 }
-
+/* default destructor */
 MainWindow:: ~MainWindow()
 {
 
 }
+/* Constructor is responsible for creating the opening screen and has connections to the directions page */
 MainWindow::MainWindow()  
 {
 	startscene = new QGraphicsScene();
@@ -92,7 +94,7 @@ MainWindow::MainWindow()
 	prelogo->show();
 	
 	
-	
+	// creating button and text box to enter name 
 	start = new QPushButton("Directions");
 	startscene->addWidget(start);
 	start->show();
@@ -112,37 +114,71 @@ MainWindow::MainWindow()
 	restart = true;
 	mushOpen = false;
 	coinCounter = 0;
-	
-	//greenShell2 = NULL;
-	//greenShell3 = NULL;
+	//initializing shells that wont show until later
+	greenShell2 = NULL;
+	greenShell3 = NULL;
 	
 	connect(start, SIGNAL(clicked()), this, SLOT(directions()));
 }
 
-
+/* Is called when the player collides with the coin, re-randomizes the position of the coin  */
 void MainWindow:: resetCoin()
 {
-	
-	int cRandXR = rand() %900;
-	int cRandYR = rand()%450 + 100;
+
+	int cRandXR = rand() %870;
+	int cRandYR = rand()%350 + 300;
 	int x = mainPlayer->pixmap->pos().x();
 	int y = mainPlayer->pixmap->pos().y();
 	
-	// putting distance between coin and player
-	while(cRandXR < x+500 && cRandXR > x-500 && cRandYR < y+500 && cRandYR > y-500)
+	// putting distance between coin and player	
+	if(cRandXR < x+2000 && cRandXR > x-2000 && cRandYR < y+2000 && cRandYR > y-2000)
 	{
-		cRandXR = rand()%900;
-		cRandYR = rand()%550;
+		if(cRandXR > x)
+		{
+			cRandXR += 100;
+
+		}
+		else if(cRandXR < x)
+		{
+			cRandXR -= 100;
+		}
+		if(cRandYR > y)
+		{
+			cRandYR += 100;
+
+		}
+		else if(cRandYR < y)
+		{
+			cRandYR -= 100;
+		}
+		if(cRandXR > 870)
+		{
+			cRandXR -= 500;
+		}
+		else if(cRandXR < -20)
+		{
+			cRandXR += 500;
+		}
+		if(cRandYR > 500)
+		{
+			cRandYR -= 500;
+		}
+		else if(cRandYR < 0)
+		{
+			cRandYR += 500;
+		}
 	}
-		
 	
+	// resetting counter for blue shell path
 	counter2 = 0;
 	
+	//setting new coin and blueshell positions
 	coin-> setX(cRandXR);
 	coin->setY(cRandYR);
 	coin->setPos(cRandXR, cRandYR);
-	blueShell->setPos(cRandXR - 80,cRandYR - 90);
+
 	
+	blueShell->setPos(cRandXR - 80,cRandYR - 90);
 	blueShell->setX(cRandXR - 80);
 	blueShell->setY(cRandYR - 90);
 	
@@ -153,96 +189,38 @@ void MainWindow:: resetCoin()
 	timer->start();
 	
 }
+
+/* This slot is connected to the reset button but is also called in levelUp() and when a shell collision is made.  
+This re-randomizes the position of the shells and coin and resets all variables if restart is true */
 void MainWindow :: resetGame()
 {
-	//timer->stop();
+	timer->stop();
 
-	int gsRandXR = rand()%900;
-	int gsRandYR = rand()%550;
-		
-	int cRandXR = rand() %900;
-	int cRandYR = rand()%450 + 100;
-		
-	int gRandXR = rand() %900;
-	int gRandYR = rand()%550;
-	/*
-	int gsRandXR2 = rand() %900;
-	int gsRandYR2 = rand()%550;
-	
-	int gsRandXR3 = rand() %900;
-	int gsRandYR3 = rand()%550;
-	*/
-	
-	int rRandXR = rand() %900;
-	int rRandYR = rand()%550;
-
-	
-	int x = mainPlayer->pixmap->pos().x();
-	int y = mainPlayer->pixmap->pos().y();
-	
-	// putting distance between green shell and player
-	while(gsRandXR < x+500 && gsRandXR > x-500 && gsRandYR < y+500 && gsRandYR > y-500)
-	{
-		gsRandXR = rand()%900;
-		gsRandYR = rand()%550;
-	}
-	/*
-	// putting distance between green shell and player
-	while(gsRandXR2 < x+500 && gsRandXR2 > x-500 && gsRandYR2 < y+500 && gsRandYR2 > y-500)
-	{
-		gsRandXR2 = rand()%900;
-		gsRandYR2 = rand()%550;
-	}
-	
-	// putting distance between green shell and player
-	while(gsRandXR3 < x+500 && gsRandXR3 > x-500 && gsRandYR3 < y+500 && gsRandYR3 > y-500)
-	{
-		gsRandXR3 = rand()%900;
-		gsRandYR3 = rand()%550;
-	}
-	*/
-	// putting distance between red shell and player
-	while(rRandXR < x+500 && rRandXR > x-500 && rRandYR < y+500 && rRandYR > y-500)
-	{
-		rRandXR = rand()%900;
-		rRandYR = rand()%550;
-	}
-		
-	// putting distance between coin and player
-	while(cRandXR < x+500 && cRandXR > x-500 && cRandYR < y+500 && cRandYR > y-500)
-	{
-		cRandXR = rand()%900;
-		cRandYR = rand()%550;
-	}
-		
-	// putting distance bewteen mush and player
-	while(gRandXR < x+500 && gRandXR > x-500 && gRandYR < y+500 && gRandYR > y-500)
-	{
-		gRandXR = rand()%900;
-		gRandYR = rand()%550;
-	}
-	
+// restart is true when the retart button is pushed, not when a life is lost
 	if(restart == true)
 	{
+	
+		//resetting all back to original 
 		lives = 3;
 		score = 0;
 		counter3 = 0;
 		coinCounter = 0;
 		level = 1;
-
+		
+		// setting player position
 		mainPlayer->pixmap->setPos(700,300);
 		mainPlayer->setX(700);
 		mainPlayer->setY(300);
 		mainPlayer->setPic(4);
 		
-		
+		// setting shell original velocities
 		redShell1 -> setDVelX(1.1);
 		redShell1 -> setDVelY(1.1);
 	
-		greenShell1 -> setDVelX(5);
-		greenShell1 -> setDVelY(5);
-
+		greenShell1 -> setDVelX(3);
+		greenShell1 -> setDVelY(3);
 		
+		// only delete it mush is on screen or else it gives error
 		if(mushOpen == true)
 		{
 			gamescene->removeItem(greenMush);
@@ -250,8 +228,8 @@ void MainWindow :: resetGame()
 			greenMush->setPos(-9999, -9999);
 			mushOpen = false;
 		}
-		
-		/*
+
+		// removing big level green shells from list
 		if(greenShell3)
 		{
 			itemsList.pop_back();
@@ -262,26 +240,287 @@ void MainWindow :: resetGame()
 		{
 			itemsList.pop_back();
 			gamescene->removeItem(greenShell2);
-			greenShell3 = NULL;
+			greenShell2 = NULL;
 		}
-		*/
+		
 	}
 	
+	// will be changed if the function calling needs restart to be false
 	restart = true;
+	
+	
+	//finding radnom numbers for all items
+	int gsRandXR = rand()%500;
+	int gsRandYR = rand()%300;
+		
+	int cRandXR = rand() %870;
+	int cRandYR = rand()%350 + 300;
+		
+	int gRandXR = rand() %900;
+	int gRandYR = rand()%550;
+	
+	int gsRandXR2 = rand() %500;
+	int gsRandYR2 = rand()%300;
+	
+	int gsRandXR3 = rand() %500;
+	int gsRandYR3 = rand()%300;
+	
+	int rRandXR = rand() %500;
+	int rRandYR = rand()%300;
+
+	// finsing x and y for the mario
+	int x = mainPlayer->pixmap->pos().x();
+	int y = mainPlayer->pixmap->pos().y();
+
+	
+	// putting distance between green shells and player
+	
+	if(gsRandXR < x+500 && gsRandXR > x-500 && gsRandYR < y+500 && gsRandYR > y-500)
+	{
+		if(gsRandXR > x)
+		{
+			gsRandXR += 100;
+
+		}
+		else if(gsRandXR < x)
+		{
+			gsRandXR -= 100;
+		}
+		if(gsRandYR > y)
+		{
+			gsRandYR += 100;
+
+		}
+		else if(gsRandYR < y)
+		{
+			gsRandYR -= 100;
+		}
+
+		if(gsRandXR > 870)
+		{
+			gsRandXR -= 500;
+		}
+		else if(gsRandXR < -20)
+		{
+			gsRandXR += 500;
+		}
+		if(gsRandYR > 500)
+		{
+			gsRandYR -= 500;
+		}
+		else if(gsRandYR < 0)
+		{
+			gsRandYR += 500;
+		}
+	}
+		
+	// distance for the 2nd green shell if exists
+	if(greenShell2 && gsRandXR2 < x+500 && gsRandXR2 > x-500 && gsRandYR2 < y+500 && gsRandYR2 > y-500)
+	{
+		if(gsRandXR2 > x)
+		{
+			gsRandXR2 += 100;
+
+		}
+		else if(gsRandXR2 < x)
+		{
+			gsRandXR2 -= 100;
+		}
+		if(gsRandYR2 > y)
+		{
+			gsRandYR2 += 100;
+
+		}
+		else if(gsRandYR2 < y)
+		{
+			gsRandYR2 -= 100;
+		}
+		if(gsRandXR2 > 870)
+		{
+			gsRandXR2 -= 500;
+		}
+		else if(gsRandXR2 < -20)
+		{
+			gsRandXR2 += 500;
+		}
+		if(gsRandYR2 > 500)
+		{
+			gsRandYR2 -= 500;
+		}
+		else if(gsRandYR2 < 0)
+		{
+			gsRandYR2 += 500;
+		}
+	}
+	
+	// distance for the third green shell if exists
+	if(greenShell3 && gsRandXR3 < x+500 && gsRandXR3 > x-500 && gsRandYR3 < y+500 && gsRandYR3 > y-500)
+	{
+		if(gsRandXR3 > x)
+		{
+			gsRandXR3 += 100;
+
+		}
+		else if(gsRandXR3 < x)
+		{
+			gsRandXR3 -= 100;
+		}
+		if(gsRandYR3 > y)
+		{
+			gsRandYR3 += 100;
+
+		}
+		else if(gsRandYR3 < y)
+		{
+			gsRandYR3 -= 100;
+		}
+		if(gsRandXR3 > 870)
+		{
+			gsRandXR3 -= 500;
+		}
+		else if(gsRandXR3 < -20)
+		{
+			gsRandXR3 += 500;
+		}
+		if(gsRandYR3 > 500)
+		{
+			gsRandYR3 -= 500;
+		}
+		else if(gsRandYR3 < 0)
+		{
+			gsRandYR3 += 500;
+		}
+	}
+
+	// distance for the red shell
+	if(rRandXR < x+500 && rRandXR > x-500 && rRandYR < y+500 && rRandYR > y-500)
+	{
+		if(rRandXR > x)
+		{
+			cRandXR += 100;
+
+		}
+		else if(rRandXR < x)
+		{
+			rRandXR -= 100;
+		}
+		if(rRandYR > y)
+		{
+			rRandYR += 100;
+
+		}
+		else if(rRandYR < y)
+		{
+			rRandYR -= 100;
+		}
+		if(rRandXR > 870)
+		{
+			rRandXR -= 500;
+		}
+		else if(rRandXR < -20)
+		{
+			rRandXR += 500;
+		}
+		if(rRandYR > 500)
+		{
+			rRandYR -= 500;
+		}
+		else if(rRandYR < 0)
+		{
+			rRandYR += 500;
+		}
+	}
+		
+	// distance between coin and player
+	if(cRandXR < x+2000 && cRandXR > x-2000 && cRandYR < y+2000 && cRandYR > y-2000)
+	{
+		if(cRandXR > x)
+		{
+			cRandXR += 100;
+
+		}
+		else if(cRandXR < x)
+		{
+			cRandXR -= 100;
+		}
+		if(cRandYR > y)
+		{
+			cRandYR += 100;
+
+		}
+		else if(cRandYR < y)
+		{
+			cRandYR -= 100;
+		}
+		if(cRandXR > 870)
+		{
+			cRandXR -= 500;
+		}
+		else if(cRandXR < -20)
+		{
+			cRandXR += 500;
+		}
+		if(cRandYR > 500)
+		{
+			cRandYR -= 500;
+		}
+		else if(cRandYR < 0)
+		{
+			cRandYR += 500;
+		}
+	}
+		
+	
+	// putting distance bewteen mush and player
+	if(gRandXR < x+500 && gRandXR > x-500 && gRandYR < y+500 && gRandYR > y-500)
+	{
+		if(gRandXR > x)
+		{
+			gRandXR += 100;
+
+		}
+		else if(gRandXR < x)
+		{
+			gRandXR -= 100;
+		}
+		if(gRandYR > y)
+		{
+			gRandYR += 100;
+
+		}
+		else if(gRandYR < y)
+		{
+			gRandYR -= 100;
+		}
+		if(gRandXR > 870)
+		{
+			gRandXR -= 500;
+		}
+		else if(gRandXR < -20)
+		{
+			gRandXR += 500;
+		}
+		if(gRandYR > 500)
+		{
+			gRandYR -= 500;
+		}
+		else if(gRandYR < 0)
+		{
+			gRandYR += 500;
+		}
+	}
+		
+	
 	
 	counter= 0;
 	counter2 = 0;
-	//counter3 = 0;
-	
 
-	
-	//mushOpen = false;
-	//greenMush->setCheck(true);
+	// setting all positions and own variable to reflect rand numbers
 	
 	greenShell1->setPos(gsRandXR, gsRandYR);
 	greenShell1->setX(gsRandXR);
 	greenShell1->setY(gsRandYR);
-	/*
+	
 	if(greenShell2)
 	{
 		greenShell2->setPos(gsRandXR2, gsRandYR2);
@@ -295,17 +534,16 @@ void MainWindow :: resetGame()
 		greenShell2->setX(gsRandXR3);
 		greenShell2->setY(gsRandYR3);
 	}
-	*/
 	
-	redShell1->setPos(80,400);
-	redShell1->setX(80);
-	redShell1->setY(400);
+	
+	redShell1->setPos(rRandXR,rRandYR);
+	redShell1->setX(rRandXR);
+	redShell1->setY(rRandYR);
 	
 	coin->setPos(cRandXR, cRandYR);
 	coin->setX(cRandXR);
 	coin->setY(cRandYR);
 	
-	//greenMush->setPos(gRandXR, gRandYR);
 	blueShell->setPos(cRandXR - 80,cRandYR - 90);
 	
 	blueShell->setX(cRandXR - 80);
@@ -313,24 +551,18 @@ void MainWindow :: resetGame()
 	
 	blueShell->setvX(1);
 	blueShell->setvY(1);
+
 	
 	timer->start();
-
+	
 }
 
+/* This slot is connected to the start button and allocates memory for the game view and scene 
+and creates the items and adds them to the scene as well as sets all variable and counters to origin */
 void MainWindow::startGame()
 {	
-
-	//namestring = name->toPlainText();
-	//if(namestring == 0 || (namestring == "Please Enter a Valid Name") == true)
-	//{
-		//name->setText("Please Enter a Valid Name");
-	//}
-
-	//else
-	//{
+		// graphics scene and view created to show game sections
 		view->setFixedSize(1200, 900 );
-		//grabKeyboard();
 		gamescene= new QGraphicsScene();
 		gameview = new QGraphicsView(gamescene);
 		
@@ -346,6 +578,7 @@ void MainWindow::startGame()
 		gameview->setFixedSize(1000, 700 );
 		gamescene->setSceneRect(0,0,950,650);
 		
+		//setting the background of the game
 		QPixmap* backgroundPic = new QPixmap("PNGpics/background1.png");
 		QPixmap* backgroundPM = new QPixmap(*backgroundPic);
 		QBrush* backgroundBrush = new QBrush(*backgroundPM);
@@ -356,6 +589,7 @@ void MainWindow::startGame()
 		view->setLayout(layout);
 		layout->addWidget(gameview, 2, 0, 10,5);
 
+		// set texts to start
 		lives = 3;
 		level = 1;
 		score = 0;
@@ -366,9 +600,11 @@ void MainWindow::startGame()
 		logo->setPixmap(*logoPic);
 		layout->addWidget(logo, 0, 1 , Qt::AlignHCenter);
 		
+		// menu button
 		menu = new QPushButton("Menu  //  Pause");
 		layout->addWidget(menu, 6, 10 , 1, 3, Qt::AlignHCenter);
 		
+		//cheat button
 		QPushButton* cheat = new QPushButton("Cheat // Level Up");
 		layout->addWidget(cheat, 7, 10 , 1, 3, Qt::AlignHCenter);
 
@@ -417,7 +653,7 @@ void MainWindow::startGame()
 		level1 = new QLabel(level2);
 		layout->addWidget(level1, 3, 10 , 1 , 3, Qt::AlignHCenter);
 		
-
+		// all pixmaps are created here
 		greenShellPic = new QPixmap("PNGpics/greenshell.png");
 		redShellPic = new QPixmap("PNGpics/redshell.png");
 		coinPic = new QPixmap("PNGpics/coin.png");
@@ -430,6 +666,8 @@ void MainWindow::startGame()
 
 		gamescene->clear();
 
+
+		// finding original random locations
 		int gsRandX = rand()%900;
 		int gsRandY = rand()%600;
 		
@@ -461,21 +699,22 @@ void MainWindow::startGame()
 		}
 		
 		
+		// items created
 		redShell1 = new RedShell(redShellPic, 80, 400);
 		greenShell1 = new GreenShell(greenShellPic, gsRandX, gsRandY);
 		coin = new Coin(coinPic, cRandX, cRandY);
 		blueShell = new BlueShell(blueShellPic,cRandX - 80,cRandY - 90);
 		greenMush = new GreenMush(greenMushPic,-9999 , -9999);
 		
-
+		// adding items to collisions list
 		itemsList.push_back(redShell1);
 		itemsList.push_back(greenShell1);
 		itemsList.push_back(coin);
 		itemsList.push_back(blueShell);		
 		itemsList.push_back(greenMush);		
 
+		// adding items to scene
 		gamescene->addItem(mainPlayer->pixmap); 
-		
 		gamescene->addItem(redShell1);
 		gamescene->addItem(greenShell1);
 		gamescene->addItem(coin);
@@ -491,12 +730,13 @@ void MainWindow::startGame()
 		connect(menu, SIGNAL(clicked()), this, SLOT(menuFunc()));
     	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 
-	//}
+
 }
 
+/* This slot is connected to timer timeout() signal and calls the move() function for every item.  
+It handles the collisions of the items with the layer and calls the appropriate action functions. */
 void MainWindow:: handleTimer()
 {
-
 	gameview->setFocusPolicy(Qt:: NoFocus);
 
 	// creating string for score
@@ -544,16 +784,19 @@ void MainWindow:: handleTimer()
 	counter2++;
 	counter3++;
 	
+	// coin bouncing cycle
 	if(counter == 40)
 	{
 		counter = 0;
 	}
 	
+	// blueshell cycle
 	if(counter2 == 600)
 	{
 		counter2 = 0;
 	}
 	
+	// greenmush cycle
 	if(counter3% 300 == 0)
 	{
 
@@ -570,98 +813,97 @@ void MainWindow:: handleTimer()
 		}
 	}
 
-
+	// calling all items to move
 	redShell1->move(mainPlayer->pixmap->pos());
 	greenShell1->move();
 	
-	/*
 	if(greenShell2)
 	{
 		greenShell2->move();
 	}
-	*/
-	
+		if(greenShell3)
+	{
+		greenShell3->move();
+	}
+
 	blueShell->setCounter(counter2);
 	blueShell->move();
 	coin->setCounter(counter);
 	coin->move();
 	
+	// iterating through list to find colisions
 	list<Thing*>:: iterator it = itemsList.begin();
 	for(it = itemsList.begin(); it!= itemsList.end(); ++it)
 	{
-
-			if(mainPlayer->pixmap->collidesWithItem(*it))
-			{			
-				int obj = (*it)->executePower();
+		if(mainPlayer->pixmap->collidesWithItem(*it))
+		{			
+			int obj = (*it)->executePower();
+			{
+				// shells collison
+				if(obj == 1)
 				{
-					if(obj == 1)
+					timer->stop();
+					// dies if no more lives available
+					if(lives == 1)
 					{
-						timer->stop();
-						if(lives == 1)
-						{
-							die();
-							break;
-						}
-						else
-						{
-							minusLife();
-							break;
-						}
-					}
-				
-					if(obj == 2)
-					{
-						timer->stop();
 						die();
 						break;
 					}
-				
-					if(obj == 3)
+					// takes away life else
+					else
 					{
-						timer->stop();
-						coinCounter++;
-						score += (100 * level);
-						resetCoin();
-						if(coinCounter % 3 == 0)
-						{
-							score += 500;
-							levelUp();
-							break;
-						}
+						minusLife();
 						break;
 					}
-					if(obj == 4 && greenMush->getCheck() == true)
-					{
-						timer->stop();
-						
-						//cout << greenMush->getCheck() << endl;
-						
-						gamescene->removeItem(greenMush);
-						greenMush->setCheck(true);
-						greenMush->setPos(-9999, -9999);
-
-						lives++;
-						
-						//cout << greenMush->getCheck() << endl;
-						
-						mushOpen = false;
-						
-						timer->start();
-						break;
-					}
-			
 				}
+				// blue shell collision. kills player
+				if(obj == 2)
+				{
+					timer->stop();
+					die();
+					break;
+				}
+				// coin colision, score updated, coin moved.  Levels up if coin counter is 3
+				if(obj == 3)
+				{
+					timer->stop();
+					coinCounter++;
+					score += (100 * level);
+					resetCoin();
+					if(coinCounter % 3 == 0)
+					{
+						score += 500;
+						levelUp();
+						break;
+					}
+					break;
+				}
+				// mushroom collision adds life, removes from scene
+				if(obj == 4 && greenMush->getCheck() == true)
+				{
+					timer->stop();
+					
+					gamescene->removeItem(greenMush);
+					greenMush->setCheck(true);
+					greenMush->setPos(-9999, -9999);
+					lives++;
+						
+					mushOpen = false;
+						
+					timer->start();
+					break;
+				}
+			
 			}
-			else {}
+		}
 	}
-
 }
-
+ /* Is called when there are no more lives left or the player collides with the blueshell. 
+ Ends the game with a QMessgae box showing the score and an option to restart or quit */
 void MainWindow:: die()
-	
 {
 		--lives;
-		
+		// starting string to show in message box
 		stringstream ss1;
 		ss1<< lives;
 		
@@ -673,7 +915,7 @@ void MainWindow:: die()
 	
 		lives1->setText(lives2);
 		
-		
+		// message box for losing
 		QMessageBox losebox;
 		
 		stringstream ss , bb;
@@ -681,12 +923,11 @@ void MainWindow:: die()
 		
 		string str = ss.str();
 		str = "GAME OVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n  	  Score: " +str;
-		bb << coinCounter;
-		string c = bb.str();
-		str += "\n	  Coins: " + c;
+	
+		
 		const char* cstr = str.c_str();
 
-		
+		// buttons for box
 		losebox.setText(cstr);
 		losebox.setWindowTitle("Play Again");
 		QPushButton* quitButton = losebox.addButton("Quit", QMessageBox::ActionRole);
@@ -732,28 +973,36 @@ void MainWindow:: keyPressEvent(QKeyEvent *event)
 	}
 }
 */
+
+
+/*  Is called when a shell collides with the player.  It takes away a life from the player and calls resetGame() */
 void MainWindow:: minusLife()
 {
 	--lives;
 	score -= 50;
-	timer->stop();
 	restart = false;
 	resetGame();
 }
 
+/* This slot is called when 3 coins have been collected and is connected to cheat, 
+it calls resetGame() with reset set to false, and increases the volocity of the shells 
+as well as increasing the level variable. */
 void MainWindow :: levelUp()
 {
+	timer->stop();
+	
+	// shells get faster
 	redShell1 -> setVelX(redShell1->getVelX() + .2);
 	redShell1 -> setVelY(redShell1->getVelY() + .2);
 	
-	greenShell1 -> setVelX(greenShell1->getVelX() + 1);
-	greenShell1 -> setVelY(greenShell1->getVelY() + 1);
+	greenShell1 -> setVelX(greenShell1->getVelX() + .5);
+	greenShell1 -> setVelY(greenShell1->getVelY() + .5);
 	restart = false;
 	
 	coinCounter = 0;
 	
 	level++;
-	/*
+	
 	if(greenShell2)
 	{
 		greenShell2 -> setVelX(greenShell2->getVelX() + 1);
@@ -765,61 +1014,122 @@ void MainWindow :: levelUp()
 		greenShell3 -> setVelX(greenShell3->getVelX() + 1);
 		greenShell3 -> setVelY(greenShell3->getVelY() + 1);
 	}
-	
-	
-	
-	
-	if(level == 3)
+	// shells added if reach level 3 or 6
+	if(level == 4)
 	{
 		int gsRandX = rand() %900;
 		int gsRandY = rand()%600;
+		int x = mainPlayer->pixmap->pos().x();
+		int y = mainPlayer->pixmap->pos().y();
 
 		// putting distance between shell and player
-		while(gsRandX < 900 && gsRandX > 500 && gsRandY < 500 && gsRandY > 50)
+		if(gsRandX < x+500 && gsRandX > x-500 && gsRandY < y+500 && gsRandY > y-500)
 		{
-			gsRandX = rand()%900;
-			gsRandY = rand()%600;
+			if(gsRandX > x)
+			{
+				gsRandX += 100;
+
+			}
+			else if(gsRandX < x)
+			{
+				gsRandX -= 100;
+			}
+			if(gsRandY > y)
+			{
+				gsRandY+= 100;
+
+			}
+			else if(gsRandY < y)
+			{
+				gsRandY -= 100;
+			}
+	
+			if(gsRandX > 870)
+			{
+				gsRandX-= 500;
+			}
+			else if(gsRandX < -20)
+			{
+				gsRandX += 500;
+			}
+			if(gsRandY > 500)
+			{
+				gsRandY -= 500;
+			}
+			else if(gsRandY < 0)
+			{
+				gsRandY += 500;
+			}
 		}
 		
-		
+			
 		greenShell2 = new GreenShell(greenShellPic,gsRandX, gsRandY); 
 		greenShell2 -> setVelX(greenShell1->getVelX());
 		greenShell2 -> setVelY(greenShell1->getVelY());
 		gamescene->addItem(greenShell2);
 		itemsList.push_back(greenShell2);
-		
-	
 	}
 	
-	if(level == 6)
+	if(level == 8)
 	{
 		int gsRandX = rand() %900;
 		int gsRandY = rand()%600;
+		int x = mainPlayer->pixmap->pos().x();
+		int y = mainPlayer->pixmap->pos().y();
 
 		// putting distance between shell and player
-		while(gsRandX < 900 && gsRandX > 500 && gsRandY < 500 && gsRandY > 50)
+		if(gsRandX < x+500 && gsRandX > x-500 && gsRandY < y+500 && gsRandY > y-500)
 		{
-			gsRandX = rand()%900;
-			gsRandY = rand()%600;
+			if(gsRandX > x)
+			{
+				gsRandX += 100;
+
+			}
+			else if(gsRandX < x)
+			{
+				gsRandX -= 100;
+			}
+			if(gsRandY > y)
+			{
+				gsRandY+= 100;
+
+			}
+			else if(gsRandY < y)
+			{
+				gsRandY -= 100;
+			}
+
+			if(gsRandX > 870)
+			{
+				gsRandX-= 500;
+			}
+			else if(gsRandX < -20)
+			{
+				gsRandX += 500;
+			}
+			if(gsRandY > 500)
+			{
+				gsRandY -= 500;
+			}
+			else if(gsRandY < 0)
+			{
+				gsRandY += 500;
+			}	
 		}
-		
 		
 		greenShell3 = new GreenShell(greenShellPic,gsRandX, gsRandY); 
 		greenShell3 -> setVelX(greenShell1->getVelX());
 		greenShell3 -> setVelY(greenShell1->getVelY());
 		gamescene->addItem(greenShell3);
 		itemsList.push_back(greenShell3);
-		
-	
-	}
-	
-	*/
-	timer->stop();
 
+	}
+	// resets game for new level
 	resetGame();
 	
 }
-
+ /* Is called when there are no more lives left or the player collides with the blueshell. 
+ Ends the game with a QMessgae box showing the score and an option to restart or quit */
 void MainWindow::show() 
 {
     view->show();
