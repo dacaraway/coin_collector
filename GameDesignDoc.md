@@ -29,7 +29,7 @@ As Mario, the player's goal is to collect coins. Easy Right? However, there will
     
   5. The Coin
     * Moving: This "thing" will bounce up and down in place waiting to be retrieved by the player.  Once the coin has been collected it will then randomly pop up in a new location for the player to collect again.
-    * Function: Has the ability to send the user to another level.
+    * Function: Has the ability to send the user to another level and increases the score.
     
 #### Photos:
 
@@ -62,7 +62,8 @@ Mario! He will be transformed to match the different directions.
 ### Part 2 (How to play? and How it works)
 The game will be played by controlling Mario with the arrow keys. He can only move in the four given
 directions, and cannot move diagnoally.  To retrieve the coin the player must direct Mario to collide with the bouncing coin.  After the player gets 3 coins he will level up.  Each level the 
-shells will get faster but on the 4th and 8th levels a new green shell is added and the shells are slown down to the original speed to make it more probable for the player.
+shells will get faster but on the 4th and 8th levels a new green shell is added and the shells are slown down to the original speed to make it more probable for the player, but after the 8th level, 
+good luck, the shells just keep getting faster.
 
 ### Part 3 (The Score!!)
 The player will earn points everytime Mario retirves a coin or when he reaches a new level, and as the levels get harder the coins will be worth more points.
@@ -75,7 +76,7 @@ When the game begins, the user will be able to type his or her name and press th
 Once the player is in the game, there will be a menu/pause button on the top of the screen, and when pressed, will pause the game,
 and give two options, to restart the game completeley or quit and terminate the application.  There is also a cheat button that allow the grader to go to the next level.  This
 shouldn't be used for fun, but just to demonstrate the differences between the levels for grading. There will be four other pieces of data on the screen,
-the score, the current level, and the amount of lives the player has remaining.
+the lpayers name, the score, the current level, and the amount of lives the player has remaining.
 
 Note: the background is a classical mario scene with the Pirahnna plants!
 
