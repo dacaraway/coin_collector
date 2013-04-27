@@ -48,7 +48,7 @@ private:
 	/**  The main GraphicsScene that holds all widgets and scenes which is allocated in startGame() */
 	 QGraphicsScene* scene;
 	 /** The main GraphicsView of my own class GraphicsView which is allocated in the constructor */
-	 QGraphicsView* view;
+	 GraphicsView* view;
 	 /**  The GraphicsScene for the start screen where the name is entered which is allocated in the constructor */
 	 QGraphicsScene* startscene;
 	 /**  The push button that calles menu() which is allocated in startGame() */
