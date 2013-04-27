@@ -796,7 +796,7 @@ void MainWindow:: handleTimer()
 	}
 	
 	// greenmush cycle
-	if(counter3% 300 == 0)
+	if(counter3% 200 == 0)
 	{
 
 		if(greenMush->getCheck() == true && mushOpen == false)
