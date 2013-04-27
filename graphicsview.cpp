@@ -4,16 +4,22 @@
 
 using namespace std;
 
+/* Constructor for a blue shell, sets velocity to 1  
+		@param scene A QGraphicsScene that is passed to the QGraphicsView constuctor
+		@param mario The main player that is passed to the item to allow for the moving of the mario
+		@param p A Widget that can be used to pass in the MainWindow that is there for experimentation by Prof. Redekopp  **/
+
 GraphicsView :: GraphicsView(QGraphicsScene* scene, Mario* mario, QWidget* p) : QGraphicsView(scene, p)
 {
 	mainPlayer = mario;
 }
-
+/* Default destructor **/
 GraphicsView :: ~GraphicsView () {}
 
+/* Handles the arrow key presses, sets the appririate velocity, picture and moves the Mario that was passed in to the constructor **/
 void GraphicsView:: keyPressEvent(QKeyEvent *event)
 {
-	//cout << "hi" << endl;
+
 	QGraphicsView:: keyPressEvent(event);
 	
 	switch(event->key())
@@ -22,14 +28,12 @@ void GraphicsView:: keyPressEvent(QKeyEvent *event)
 			mainPlayer->setVel(-8,0);
 			mainPlayer->setPic(4);
 			mainPlayer->move_();
-			mainPlayer->setPrevDirec(4);
 			break;
 			
 		case Qt::Key_Right:
 			mainPlayer->setVel(8,0);
 			mainPlayer->setPic(2);
 			mainPlayer->move_();
-			mainPlayer->setPrevDirec(2);
 			break;
 			
 		case Qt::Key_Up:

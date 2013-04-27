@@ -131,7 +131,7 @@ void MainWindow:: resetCoin()
 	int y = mainPlayer->pixmap->pos().y();
 	
 	// putting distance between coin and player	
-	if(cRandXR < x+2000 && cRandXR > x-2000 && cRandYR < y+2000 && cRandYR > y-2000)
+	if(cRandXR < x+5000 && cRandXR > x-5000 && cRandYR < y+5000 && cRandYR > y-5000)
 	{
 		if(cRandXR > x)
 		{
@@ -153,11 +153,11 @@ void MainWindow:: resetCoin()
 		}
 		if(cRandXR > 870)
 		{
-			cRandXR -= 500;
+			cRandXR -= 700;
 		}
 		else if(cRandXR < -20)
 		{
-			cRandXR += 500;
+			cRandXR += 700;
 		}
 		if(cRandYR > 500)
 		{
@@ -432,7 +432,7 @@ void MainWindow :: resetGame()
 	}
 		
 	// distance between coin and player
-	if(cRandXR < x+2000 && cRandXR > x-2000 && cRandYR < y+2000 && cRandYR > y-2000)
+	if(cRandXR < x+5000 && cRandXR > x-5000 && cRandYR < y+5000 && cRandYR > y-5000)
 	{
 		if(cRandXR > x)
 		{
@@ -454,11 +454,11 @@ void MainWindow :: resetGame()
 		}
 		if(cRandXR > 870)
 		{
-			cRandXR -= 500;
+			cRandXR -= 700;
 		}
 		else if(cRandXR < -20)
 		{
-			cRandXR += 500;
+			cRandXR += 700;
 		}
 		if(cRandYR > 500)
 		{
@@ -725,7 +725,6 @@ void MainWindow::startGame()
     	timer->setInterval(50);
 		timer->start();
 
-
 		connect(cheat, SIGNAL(clicked()), this, SLOT(levelUp()));
 		connect(menu, SIGNAL(clicked()), this, SLOT(menuFunc()));
     	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
@@ -878,7 +877,7 @@ void MainWindow:: handleTimer()
 					}
 					break;
 				}
-				// mushroom collision adds life, removes from scene
+				// mushroom collision adds life, removes from scene // only entered if the mushroom has not alread been deleted fset
 				if(obj == 4 && greenMush->getCheck() == true)
 				{
 					timer->stop();
@@ -949,14 +948,12 @@ void MainWindow:: keyPressEvent(QKeyEvent *event)
 			mainPlayer->setVel(-8,0);
 			mainPlayer->setPic(4);
 			mainPlayer->move_();
-			mainPlayer->setPrevDirec(4);
 			break;
 			
 		case Qt::Key_Right:
 			mainPlayer->setVel(8,0);
 			mainPlayer->setPic(2);
 			mainPlayer->move_();
-			mainPlayer->setPrevDirec(2);
 			break;
 			
 		case Qt::Key_Up:
@@ -992,8 +989,8 @@ void MainWindow :: levelUp()
 	timer->stop();
 	
 	// shells get faster
-	redShell1 -> setVelX(redShell1->getVelX() + .2);
-	redShell1 -> setVelY(redShell1->getVelY() + .2);
+	redShell1 -> setVelX(redShell1->getVelX() + .1);
+	redShell1 -> setVelY(redShell1->getVelY() + .1);
 	
 	greenShell1 -> setVelX(greenShell1->getVelX() + .5);
 	greenShell1 -> setVelY(greenShell1->getVelY() + .5);
@@ -1017,6 +1014,12 @@ void MainWindow :: levelUp()
 	// shells added if reach level 3 or 6
 	if(level == 4)
 	{
+		greenShell1->setDVelX(3);
+		greenShell1->setDVelY(3);
+		
+		redShell1->setDVelX(1.1);
+		redShell1->setDVelY(1.1);
+		
 		int gsRandX = rand() %900;
 		int gsRandY = rand()%600;
 		int x = mainPlayer->pixmap->pos().x();
@@ -1064,14 +1067,24 @@ void MainWindow :: levelUp()
 		
 			
 		greenShell2 = new GreenShell(greenShellPic,gsRandX, gsRandY); 
-		greenShell2 -> setVelX(greenShell1->getVelX());
-		greenShell2 -> setVelY(greenShell1->getVelY());
+		greenShell2 -> setDVelX(greenShell1->getVelX());
+		greenShell2 -> setDVelY(greenShell1->getVelY());
 		gamescene->addItem(greenShell2);
 		itemsList.push_back(greenShell2);
 	}
 	
 	if(level == 8)
 	{
+		greenShell1->setDVelX(3);
+		greenShell1->setDVelY(3);
+		
+		greenShell2->setDVelX(3);
+		greenShell2->setDVelY(3);
+		
+		
+		redShell1->setDVelX(1.1);
+		redShell1->setDVelY(1.1);
+		
 		int gsRandX = rand() %900;
 		int gsRandY = rand()%600;
 		int x = mainPlayer->pixmap->pos().x();
@@ -1118,8 +1131,8 @@ void MainWindow :: levelUp()
 		}
 		
 		greenShell3 = new GreenShell(greenShellPic,gsRandX, gsRandY); 
-		greenShell3 -> setVelX(greenShell1->getVelX());
-		greenShell3 -> setVelY(greenShell1->getVelY());
+		greenShell3 -> setDVelX(greenShell1->getVelX());
+		greenShell3 -> setDVelY(greenShell1->getVelY());
 		gamescene->addItem(greenShell3);
 		itemsList.push_back(greenShell3);
 
