@@ -13,7 +13,6 @@
 *.a
 
 Makefile
-game_caraway
 game_caraway.pro
 moc_mainwindow.cpp
 
