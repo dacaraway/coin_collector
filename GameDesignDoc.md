@@ -25,6 +25,7 @@ As Mario, the player's goal is to collect coins. Easy Right? However, there will
   
   4. Green "1 Up" Mushroom
     * Moving: This "thing" wont move, but will appear after a certain interval through the game.
+    * Appearance: Will show up after 10 seconds.
     * Function: Has the ability to give the player an extra life.
     
   5. The Coin
