@@ -25,7 +25,7 @@ class Thing: public QGraphicsPixmapItem
 		virtual void move() = 0;
 		/** A pure virtual function for the things to return their power identifier **/
 		virtual int executePower() = 0;
-		/** A pure virtual function for the things to set their y  **/
+		/** A pure virtual function for the things to set their x  **/
 		void setX(int nx);
 		/** A pure virtual function for the things to set their y  **/
 		void setY(int ny);
@@ -34,7 +34,7 @@ class Thing: public QGraphicsPixmapItem
 
 		
 	protected:
-	/** The current x location of the thing  **/
+		/** The current x location of the thing  **/
 		double x;
 		/** The current y location of the thing  **/
 		double y;
