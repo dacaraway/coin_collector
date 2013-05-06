@@ -123,6 +123,11 @@ private:
    	 int level;
    	 /**  A boolean to help prevent double deletion of the shell from the scene, set to true when the mushroom is on the screen */
    	 bool mushOpen;
+   	 
+   	 QPixmap* backgroundPic1;
+	 QPixmap* backgroundPic2;
+	 QPixmap* backgroundPic3;
+	 QPixmap* backgroundPic4;
 
 public slots:
 	/** This slot is connected to the menu button and pauses the game and allows for a resetGame() with restart as true, quit(), or unpauseGame() */

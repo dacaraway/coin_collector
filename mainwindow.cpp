@@ -586,11 +586,14 @@ void MainWindow::startGame()
 		gamescene->setSceneRect(0,0,950,650);
 		
 		//setting the background of the game
-		QPixmap* backgroundPic = new QPixmap("PNGpics/background1.png");
-		QPixmap* backgroundPM = new QPixmap(*backgroundPic);
-		QBrush* backgroundBrush = new QBrush(*backgroundPM);
+		backgroundPic1 = new QPixmap("PNGpics/background1.png");
+		backgroundPic2 = new QPixmap("PNGpics/background2.png");
+		backgroundPic3 = new QPixmap("PNGpics/background3.png");
+		backgroundPic4 = new QPixmap("PNGpics/background4.png");
 		
-		gamescene->setBackgroundBrush(*backgroundBrush);
+		QBrush* backgroundBrush1 = new QBrush(*backgroundPic1);
+		
+		gamescene->setBackgroundBrush(*backgroundBrush1);
 			
 		QGridLayout* layout = new QGridLayout();
 		view->setLayout(layout);
@@ -1104,6 +1107,46 @@ void MainWindow :: levelUp()
 {
 	timer->stop();
 	
+	int modL;
+			level++;
+	modL= level%4;
+
+	
+	switch(modL)
+	{
+		case 1:
+		{
+			QBrush* backgroundBrush1 = new QBrush(*backgroundPic1);
+		
+			gamescene->setBackgroundBrush(*backgroundBrush1);
+			break;
+		}
+		case 2:
+		{
+			QBrush* backgroundBrush2 = new QBrush(*backgroundPic2);
+		
+			gamescene->setBackgroundBrush(*backgroundBrush2);
+			break;
+		}
+		case 3:
+		{
+			QBrush* backgroundBrush3 = new QBrush(*backgroundPic3);
+		
+			gamescene->setBackgroundBrush(*backgroundBrush3);
+			break;
+		}
+		case 0:
+		{
+			QBrush* backgroundBrush4 = new QBrush(*backgroundPic4);
+		
+			gamescene->setBackgroundBrush(*backgroundBrush4);
+			break;
+		}
+		
+	}
+	
+	
+	
 	// shells get faster
 	redShell1 -> setVelX(redShell1->getVelX() + .1);
 	redShell1 -> setVelY(redShell1->getVelY() + .1);
@@ -1114,7 +1157,7 @@ void MainWindow :: levelUp()
 	
 	coinCounter = 0;
 	
-	level++;
+
 	
 	if(greenShell2)
 	{
