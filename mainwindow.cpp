@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <sstream>
 #include <QGraphicsPixmapItem>
+#include <fstream>
 
 using namespace std;
 /* This slot is connected to the quit button and terminate the program */
@@ -101,7 +102,7 @@ MainWindow::MainWindow()
 	
 	
 	// creating button and text box to enter name 
-	start = new QPushButton("Directions");
+	start = new QPushButton("Next");
 	startscene->addWidget(start);
 	start->show();
 	start->move(200,430);
@@ -920,16 +921,125 @@ void MainWindow:: die()
 	
 		lives1->setText(lives2);
 		
+		string hsList[10];
+		
+		ifstream text("highscores.txt");
+		
+		if(text)
+		{
+			for(int i=0; i<10; i++)
+			{
+				string name1;
+				text >> name1;
+				int score1;
+				text >> score1;
+			
+				stringstream total;
+				total << name1 << " " << score1;
+			
+				string final = total.str();
+			
+				hsList[i] = final;
+			}
+			text.close();
+		}
+		
+		else
+		{
+			for(int i=0; i<10; i++)
+			{
+				stringstream num;
+				
+				string name3 = "NONE";
+				
+				num << name3 << " " << 0;
+				string final;
+				
+				final = num.str();
+				
+				hsList[i] = final;
+				
+			}
+		}
+		
+		
+		for(int i=0; i<10; i++)
+		{
+			string snew = hsList[i];
+			stringstream ss(snew);
+			
+			string name;
+			ss >> name;
+			int scoreR;
+			
+			ss >> scoreR;
+			
+			if(score > scoreR)
+			{
+				string cName;
+				cName = namestring.toStdString();
+				
+				for(int j=9; j>=i+1; j--)
+				{
+					hsList[j] = hsList[j-1];
+				} 
+				
+				string name = cName;
+				
+				stringstream total;
+				total << cName << " " << score;
+			
+				string final = total.str();
+			
+				hsList[i] = final; 
+				
+				break;
+
+			}
+		
+		}
+		
+		ofstream outText("highscores.txt");
+
+			for(int i=0; i<10; i++)
+			{
+				string string = hsList[i];
+				
+				outText << string << " ";
+			}
+			
+			outText.close();
+		
 		// message box for losing
 		QMessageBox losebox;
 		
-		stringstream ss , bb;
-		ss<< score;
-		
+		stringstream ss;
+		ss << score;
 		string str = ss.str();
+		
+		ifstream text1("highscores.txt");
+		
+		stringstream ss2;
+		for(int i=0; i<10; i++)
+		{
+			string string1;
+			string string2;
+			text1 >> string1;
+			text1 >> string2;
+			
+			
+			ss2 << string1 << " " << string2 << "\n" << endl;
+			
+		}
+		
 		str = "GAME OVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n  	  Score: " +str;
 	
+		str += "\n \n \n                   High Scores:";
 		
+		str += "\n \n";
+		
+		string str2 = ss2.str();
+		str += str2;
 		const char* cstr = str.c_str();
 
 		// buttons for box
