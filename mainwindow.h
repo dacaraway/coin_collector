@@ -123,10 +123,13 @@ private:
    	 int level;
    	 /**  A boolean to help prevent double deletion of the shell from the scene, set to true when the mushroom is on the screen */
    	 bool mushOpen;
-   	 
+   	 /**  The picture for the first background */
    	 QPixmap* backgroundPic1;
+   	 /**  The picture for the second background */
 	 QPixmap* backgroundPic2;
+	 /**  The picture for the third background */
 	 QPixmap* backgroundPic3;
+	 /**  The picture for the last background */
 	 QPixmap* backgroundPic4;
 
 public slots:
