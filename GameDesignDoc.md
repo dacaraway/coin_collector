@@ -71,6 +71,7 @@ The player will earn points everytime Mario retirves a coin or when he reaches a
 
 ### Part 4 (Lives)
 The player will begin with three lives, every time he gets hit by a shell his lives will decrease by one, and the player  will a) be reincarnated in the corner of the screen if there are more lives available or the game will be over. If the green mushroom appears and Mario gets ahold of it, he will get an extra life added to his stock pile.
+High scores will be saved between executions and will be shown when the player loses the game.
  
 ### Part 5 (The interface)
 When the game begins, the user will be able to type his or her name and press the start button.
