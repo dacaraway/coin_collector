@@ -9,6 +9,10 @@
   + Game Description: Use the keyboard to move mario to get the coin while avoinding the shells.
   + [Game Design Doc](GameDesignDoc.md)
 
+### Programs used to create
+  + Qt Creator was used to make this game, and will be needed to compile.
+  + Doxygen must also be used to run the doxygen instuctions to generate html files containing class documentations.
+
 
 ### Compile & Run Instructions
 ```shell
