@@ -28,7 +28,7 @@ doxygen -g config.txt
 doxygen config.txt
 
 #Command to run
-./game_caraway
+./coin_collector
 
 ```
 
